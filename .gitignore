@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+vendor/
+
+# Compilados y empaquetados (Angular)
+dist/
+out-tsc/
+.angular/
+
+# Archivos de entorno protegidos (Laravel/Angular)
+.env
+.env.*
+!.env.example
+
+# Logs y cachés
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+storage/*.key
+.phpunit.result.cache
+
+# Archivos propios del Sistema Operativo y Editores
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
