@@ -1,64 +1,47 @@
-# 💡 Proyecto Techpass Academy - Grupo Lumina
+# 🚀 Proyecto Lumina
 
-Bienvenido al repositorio oficial del **Grupo Lumina**. Este proyecto consta del desarrollo de un sistema web completo (Techpass Academy) utilizando un enfoque ágil (**Scrum**) abarcando 4 sprints.
+Lumina es una plataforma de e-learning automatizada diseñada para optimizar la gestión de cursos, alumnos y suscripciones, eliminando la fricción entre el pago y el acceso al contenido.
 
 ## 🛠️ Stack Tecnológico
 
-El proyecto cumple con los siguientes requerimientos técnicos acordados:
-- **Backend:** Laravel (PHP) exponiendo una API REST.
-- **Frontend:** Angular (TypeScript) implementado como una SPA (Single Page Application).
-- **Base de Datos:** PostgreSQL (Estructura normalizada al menos hasta 3FN).
-- **Metodología de Desarrollo:** Scrum con 4 sprints iterativos (1 semana c/u).
-- **Control de Versiones:** Git mediante flujo de ramas por funcionalidad.
+- **Backend:** Laravel 11 (PHP) - API REST / Sanctum
+- **Frontend:** Angular 17+ (TypeScript) - SPA
+- **Base de Datos:** PostgreSQL
+- **Marco de Trabajo:** Scrum (Jira)
 
-## 📁 Arquitectura del Repositorio
+## 👥 Equipo de Desarrollo (Sprint 0)
 
-- `/backend`: Concentra toda la lógica del servidor, API y conexiones en Laravel.
-- `/frontend`: Aplicación cliente (SPA) desarrollada con Angular.
-- `/docs`: Documentación vital del ecosistema (Sprint 0). Contiene:
-  - Diagrama UML arquitectónico.
-  - Scripts SQL de creación inicial para PostgreSQL.
-  - Documentos metodológicos (Actas, Product Backlog, etc).
-
-## 👥 Integrantes (Lumina)
-
-*   [Nombre del Integrante 1] - [Rol]
-*   [Nombre del Integrante 2] - [Rol]
-*   [Nombre del Integrante 3] - [Rol]
-
-*(Nota: Rellenar los nombres y roles correspondientes)*
+- Sebastian Salvador Blanco Vaca
+- Emerson Raphael Mollo Isla
+- Jhomar Edilson Mamani Huanca
 
 ---
 
-## 🚀 Instrucciones de Levantamiento (Entorno Local)
+## ⚙️ Requisitos Previos
 
-Para inicializar el proyecto en tu máquina local, sigue las instrucciones de cada entorno. *(Estas instrucciones cobrarán vida a medida que cada proyecto base se inicialice formalmente).*
+Para levantar este entorno localmente, asegúrese de tener instalado:
 
-### 1. Requisitos Previos
-*   Tener instalado y configurado **PHP**, **Composer**, **Node.js** y **PostgreSQL**.
+- PHP >= 8.2
+- Composer
+- Node.js (LTS) y npm
+- PostgreSQL
 
-### 2. Base de Datos
-1. Crear una base de datos aislada en PostgreSQL.
-2. Ejecutar el script base ubicado en `/docs` para montar los esquemas iniciales (si aplica).
+---
 
-### 3. Backend (Laravel)
+## 🚀 Instrucciones de Instalación
+
+### 1. Configuración de la Base de Datos
+
+1. Abra pgAdmin o DBeaver.
+2. Cree una base de datos vacía llamada `lumina_db`.
+
+### 2. Levantar el Backend (Laravel)
+
+Abra una terminal en la raíz del proyecto y ejecute:
+
 ```bash
-cd backend
-# 1. Instalar dependencias
+cd backend/api-lumina
 composer install
-# 2. Copiar variables de entorno
 cp .env.example .env
-# 3. Generar la llave de la app
 php artisan key:generate
-# 4. Levantar el servidor
-php artisan serve
-```
-
-### 4. Frontend (Angular)
-```bash
-cd frontend
-# 1. Instalar dependencias
-npm install
-# 2. Levantar servidor local (SPA)
-npm start # o ng serve
 ```
