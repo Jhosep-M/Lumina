@@ -1,6 +1,10 @@
-# 🚀 Proyecto Lumina
+# 🚀 CodeForge Academy
 
-Lumina es una plataforma de e-learning automatizada diseñada para optimizar la gestión de cursos, alumnos y suscripciones, eliminando la fricción entre el pago y el acceso al contenido.
+Una plataforma educacional impulsada por **Lumina**.
+
+> _«La tecnología suele ser oscura y difícil de entender. Lumina disipa las sombras iluminando el camino de los futuros profesionales tecnológicos con rutas de aprendizaje claras y directas.»_
+
+**CodeForge** es una academia virtual integral de e-learning de formato suscripción. Está diseñada para optimizar la gestión de cursos para desarrolladores e impulsar el talento en IT, eliminando la fricción matemática y técnica entre las suscripciones, pagos automatizados y el acceso al contenido.
 
 ## 🛠️ Stack Tecnológico
 
@@ -9,7 +13,7 @@ Lumina es una plataforma de e-learning automatizada diseñada para optimizar la 
 - **Base de Datos:** PostgreSQL
 - **Marco de Trabajo:** Scrum (Jira)
 
-## 👥 Equipo de Desarrollo (Sprint 0)
+## 👥 Equipo de Desarrollo
 
 - Sebastian Salvador Blanco Vaca
 - Emerson Raphael Mollo Isla
