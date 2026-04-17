@@ -1,0 +1,73 @@
+@use 'variables' as vars;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-primary: #{vars.$color-celeste};
+  --color-primary-hover: #{vars.$color-celeste-hover};
+  --color-dark: #{vars.$color-dark-blue};
+  --color-dark-light: #{vars.$color-dark-blue-light};
+  --color-accent: #{vars.$color-gold};
+  --color-white: #{vars.$color-white};
+  --color-bg: #{vars.$color-bg-light};
+  --color-text: #{vars.$color-text-main};
+  --color-text-muted: #{vars.$color-text-muted};
+
+  --font-base: #{vars.$font-family-base};
+  --radius-md: #{vars.$radius-md};
+  --shadow-md: #{vars.$shadow-md};
+  --transition: #{vars.$transition-base};
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-base);
+  font-size: vars.$font-size-base;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Clases utilitarias base
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  font-size: 0.95rem;
+
+  &--primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    &:hover { background-color: var(--color-primary-hover); transform: translateY(-1px); }
+  }
+
+  &--dark {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    &:hover { background-color: var(--color-dark-light); }
+  }
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+  }
+}

@@ -1,0 +1,39 @@
+<header class="header">
+  <div class="header-container">
+    <!-- Logo -->
+    <a routerLink="/" class="logo" aria-label="Ir al inicio">
+      <img ngSrc="assets/images/logo.svg" alt="LUMINA Logo" width="120" height="32" priority />
+      <span class="logo-text">LUMINA</span>
+    </a>
+
+    <!-- Navegación Desktop -->
+    <nav class="nav-menu" [class.active]="isMenuOpen">
+      <ul class="nav-list">
+        <li>
+          <a routerLink="/cursos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            Cursos
+          </a>
+        </li>
+        <li>
+          <a routerLink="/rutas" routerLinkActive="active">Rutas de Aprendizaje</a>
+        </li>
+        <li>
+          <a routerLink="/escuelas" routerLinkActive="active">Escuelas</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Acciones -->
+    <div class="header-actions">
+      <a routerLink="/auth/login" class="btn btn--primary">
+        Iniciar Sesión
+      </a>
+      
+      <button class="mobile-menu-btn" (click)="toggleMenu()" aria-label="Menú">
+        <span class="bar" [class.open]="isMenuOpen"></span>
+        <span class="bar" [class.open]="isMenuOpen"></span>
+        <span class="bar" [class.open]="isMenuOpen"></span>
+      </button>
+    </div>
+  </div>
+</header>
