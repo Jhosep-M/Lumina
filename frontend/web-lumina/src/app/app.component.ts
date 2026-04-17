@@ -2,11 +2,11 @@ import { Component, AfterViewInit } from '@angular/core';  // ← Agrega AfterVi
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 //import { FooterComponent } from './shared/components/footer/footer.component';
-
+import { TopBannerComponent } from './shared/components/top-banner/top-banner.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, TopBannerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

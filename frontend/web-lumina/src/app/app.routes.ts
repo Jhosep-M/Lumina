@@ -2,6 +2,25 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
+  // --- Rutas de Negocio/Funcionales ---
+  {
+    path: 'business',
+    loadComponent: () => import('./features/placeholder/placeholder.component').then(m => m.PlaceholderComponent)
+  },
+  {
+    path: 'jobs',
+    loadComponent: () => import('./features/placeholder/placeholder.component').then(m => m.PlaceholderComponent)
+  },
+  {
+    path: 'live',
+    loadComponent: () => import('./features/placeholder/placeholder.component').then(m => m.PlaceholderComponent)
+  },
+  {
+    path: 'premium',
+    loadComponent: () => import('./features/placeholder/placeholder.component').then(m => m.PlaceholderComponent)
+  },
+
+  // --- Rutas de Contenido ---
   {
     path: 'courses',
     loadChildren: () => import('./features/courses/routes').then(m => m.COURSE_ROUTES)
@@ -18,16 +37,20 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./features/auth/routes').then(m => m.AUTH_ROUTES)
   },
+
+  // --- Rutas Protegidas ---
   {
     path: 'cart',
     canActivate: [authGuard],
-  loadChildren: () => import('./features/cart/routes').then(m => m.CART_ROUTES)
+    loadChildren: () => import('./features/cart/routes').then(m => m.CART_ROUTES)
   },
   {
     path: 'profile',
-     canActivate: [authGuard],
-  loadChildren: () => import('./features/user-profile/routes').then(m => m.PROFILE_ROUTES)  
+    canActivate: [authGuard],
+    loadChildren: () => import('./features/user-profile/routes').then(m => m.PROFILE_ROUTES)  
   },
+
+  // --- Redirecciones Finales ---
   { path: '', redirectTo: '/courses', pathMatch: 'full' },
   { path: '**', redirectTo: '/courses' }
 ];
