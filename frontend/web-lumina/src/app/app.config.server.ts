@@ -1,12 +1,14 @@
 // app.config.server.ts
-// CORREGIDO: Angular 21 — provideServerRendering() sin withRoutes() (deprecado)
+
 import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
-import { provideServerRendering } from '@angular/ssr';
+import { provideServerRendering, provideServerRoutesConfig } from '@angular/ssr';
 import { appConfig } from './app.config';
+import { serverRoutes } from './app.routes.server';
 
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
+    provideServerRoutesConfig(serverRoutes),
   ],
 };
 

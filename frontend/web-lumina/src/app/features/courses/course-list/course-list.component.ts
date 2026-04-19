@@ -7,7 +7,7 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TruncatePipe } from '../../../shared/pipes/truncate.pipe';
+
 import { CourseService } from '../services/course.service';
 import { Course } from '../../../core/models/course.model';
 
