@@ -1,45 +1,54 @@
+// header.component.ts
+// Archivo: frontend/web-lumina/src/app/shared/components/header/header.component.ts
+//
+// CAMBIOS vs. versión original:
+//  1. Eliminado NgOptimizedImage — usaba ngSrc="assets/images/logo.svg" que NO existe
+//     → causaba error Angular en runtime que rompía el header completo
+//  2. Eliminado CommonModule — no se usa directamente; los @if/@for son sintaxis Angular nativa
+//  3. Mantenida toda la lógica de signals y menú
+
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NgOptimizedImage, CommonModule } from '@angular/common';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-// Define la estructura de tus items
+
 interface MenuItem {
   label: string;
   route: string;
-  exact: boolean; // El '?' significa que es opcional al definirlo...
-  indicator?: boolean;
-  highlight?: string;
+  exact: boolean;
+  indicator?: boolean;   // punto rojo (En vivo)
+  highlight?: boolean;   // color dorado (Premium)
 }
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgOptimizedImage, CommonModule, SearchBarComponent],
+  imports: [RouterLink, RouterLinkActive, SearchBarComponent],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
-
 export class HeaderComponent {
   isMenuOpen = signal(false);
 
-  toggleMenu() {
+  menuItems: MenuItem[] = [
+    { label: 'Cursos',   route: '/courses',  exact: true  },
+    { label: 'Rutas',    route: '/paths',    exact: false },
+    { label: 'Escuelas', route: '/schools',  exact: false },
+    { label: 'Empresas', route: '/business', exact: false },
+    { label: 'Trabajos', route: '/jobs',     exact: false },
+    { label: 'En vivo',  route: '/live',     exact: false, indicator: true  },
+    { label: 'Premium',  route: '/premium',  exact: false, highlight: true  },
+  ];
+
+  toggleMenu(): void {
     this.isMenuOpen.update(v => !v);
   }
 
-  closeMenu() {
+  closeMenu(): void {
     this.isMenuOpen.set(false);
   }
 
-  onSearch(term: string) {
+  onSearch(term: string): void {
     console.log('Buscando:', term);
-    // Implementa navegación a resultados de búsqueda
+    // TODO: router.navigate(['/search'], { queryParams: { q: term } })
   }
-   menuItems: MenuItem[] = [
-    { label: 'Cursos', route: '/courses', exact: true },
-    { label: 'Rutas', route: '/paths', exact: false }, // Agrega exact: false donde falte
-    { label: 'Escuelas', route: '/schools', exact: false },
-    { label: 'Empresas', route: '/business', exact: false },
-    { label: 'Trabajos', route: '/jobs', exact: false },
-    { label: 'En vivo', route: '/live', exact: false, indicator: true },
-    { label: 'Premium', route: '/premium', exact: false, highlight: '⭐' }
-  ];
 }
