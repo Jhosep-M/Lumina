@@ -42,4 +42,48 @@ class CourseController extends Controller
             'course' => $course
         ], 201);
     }
+
+    // 3. Ver un solo curso en específico (Por si el frontend necesita la vista de detalle)
+    public function show($id)
+    {
+        $course = Course::with('category')->find($id);
+
+        if (!$course) {
+            return response()->json(['message' => 'Curso no encontrado'], 404);
+        }
+
+        return response()->json($course, 200);
+    }
+
+    // 4. Actualizar un curso existente
+    public function update(Request $request, $id)
+    {
+        $course = Course::find($id);
+
+        if (!$course) {
+            return response()->json(['message' => 'Curso no encontrado'], 404);
+        }
+
+        // Actualizamos los datos. Validaciones similares al store podrían ir aquí en un entorno real.
+        $course->update($request->all());
+
+        return response()->json([
+            'message' => 'Curso actualizado exitosamente',
+            'course' => $course
+        ], 200);
+    }
+
+    // 5. Borrar un curso
+    public function destroy($id)
+    {
+        $course = Course::find($id);
+
+        if (!$course) {
+            return response()->json(['message' => 'Curso no encontrado'], 404);
+        }
+
+        $course->delete();
+
+        return response()->json(['message' => 'Curso eliminado correctamente'], 200);
+    }
 }
