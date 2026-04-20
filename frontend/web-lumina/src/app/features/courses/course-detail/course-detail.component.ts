@@ -45,7 +45,7 @@ import { CourseDetail } from '../../../core/models/course.model';
       <!-- Error -->
       @if (error()) {
         <div class="text-center py-20">
-          <p class="text-gray-600 font-medium text-lg">Curso no encontrado.</p>
+          <p class="text-slate-300 font-medium text-lg">Curso no encontrado.</p>
           <a routerLink="/courses" class="mt-4 btn btn-primary text-sm inline-flex">
             Ver catálogo
           </a>
@@ -69,14 +69,14 @@ import { CourseDetail } from '../../../core/models/course.model';
               }
             </div>
 
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">
+            <h1 class="text-2xl md:text-3xl font-bold text-slate-100 leading-tight">
               {{ c.title }}
             </h1>
 
-            <p class="text-gray-600 mt-3 leading-relaxed">{{ c.description }}</p>
+            <p class="text-slate-400 mt-3 leading-relaxed">{{ c.description }}</p>
 
             <!-- Meta info -->
-            <div class="flex flex-wrap gap-4 mt-4 text-sm text-gray-500">
+            <div class="flex flex-wrap gap-4 mt-4 text-sm text-slate-400">
               <span class="flex items-center gap-1.5">
                 <svg class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor">
@@ -112,11 +112,11 @@ import { CourseDetail } from '../../../core/models/course.model';
 
             <!-- Prerequisitos -->
             @if (c.prerequisites.length > 0) {
-              <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-                <h3 class="font-semibold text-amber-800 text-sm mb-2">Prerequisitos</h3>
+              <div class="mt-6 p-4 bg-amber-950/40 border border-amber-800/60 rounded-xl">
+                <h3 class="font-semibold text-amber-400 text-sm mb-2">Prerequisitos</h3>
                 <ul class="space-y-1">
                   @for (prereq of c.prerequisites; track prereq) {
-                    <li class="text-amber-700 text-sm flex items-start gap-2">
+                    <li class="text-amber-300 text-sm flex items-start gap-2">
                       <svg class="w-4 h-4 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24"
                            stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -136,18 +136,18 @@ import { CourseDetail } from '../../../core/models/course.model';
                 <div class="space-y-3">
                   @for (section of c.syllabus; track section.sectionTitle; let i = $index) {
                     <div class="border border-gray-200 rounded-xl overflow-hidden">
-                      <div class="px-4 py-3 bg-gray-50 flex items-center justify-between">
-                        <span class="font-medium text-gray-800 text-sm">
+                      <div class="px-4 py-3 bg-slate-800/60 flex items-center justify-between">
+                        <span class="font-medium text-slate-200 text-sm">
                           Sección {{ i + 1 }}: {{ section.sectionTitle }}
                         </span>
-                        <span class="text-xs text-gray-500">
+                        <span class="text-xs text-slate-500">
                           {{ section.lessons.length }} lecciones
                         </span>
                       </div>
-                      <ul class="divide-y divide-gray-100">
+                      <ul class="divide-y divide-slate-700/50">
                         @for (lesson of section.lessons; track lesson.title) {
                           <li class="px-4 py-2.5 flex items-center justify-between
-                                     text-sm text-gray-700">
+                                     text-sm text-slate-300">
                             <span class="flex items-center gap-2">
                               <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none"
                                    viewBox="0 0 24 24" stroke="currentColor">
@@ -162,7 +162,7 @@ import { CourseDetail } from '../../../core/models/course.model';
                               </svg>
                               {{ lesson.title }}
                             </span>
-                            <span class="text-xs text-gray-400 shrink-0 ml-2">
+                            <span class="text-xs text-slate-500 shrink-0 ml-2">
                               {{ lesson.durationMinutes }}min
                             </span>
                           </li>
@@ -187,7 +187,7 @@ import { CourseDetail } from '../../../core/models/course.model';
               }
 
               <!-- Precio -->
-              <div class="text-3xl font-bold text-gray-900 mb-1">
+              <div class="text-3xl font-bold text-slate-100 mb-1">
                 @if (c.price === 0) {
                   <span class="text-green-600">Gratis</span>
                 } @else {
@@ -214,12 +214,12 @@ import { CourseDetail } from '../../../core/models/course.model';
               }
 
               <!-- Garantía -->
-              <p class="text-xs text-gray-400 text-center mt-4">
+              <p class="text-xs text-slate-500 text-center mt-4">
                 30 días de garantía de devolución
               </p>
 
               <!-- Incluye -->
-              <ul class="mt-4 space-y-2 text-sm text-gray-600">
+              <ul class="mt-4 space-y-2 text-sm text-slate-300">
                 <li class="flex items-center gap-2">
                   <svg class="w-4 h-4 text-green-500 shrink-0" fill="none"
                        viewBox="0 0 24 24" stroke="currentColor">

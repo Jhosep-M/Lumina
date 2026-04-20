@@ -21,8 +21,8 @@ import { Course } from '../../../core/models/course.model';
 
       <!-- Header -->
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Catálogo de cursos</h1>
-        <p class="text-gray-500 mt-2">Aprende con los mejores expertos de la industria</p>
+        <h1 class="text-3xl font-bold text-slate-100">Catálogo de cursos</h1>
+        <p class="text-slate-400 mt-2">Aprende con los mejores expertos de la industria</p>
       </div>
 
       <!-- Filtros de nivel -->
@@ -34,9 +34,10 @@ import { Course } from '../../../core/models/course.model';
             [class.bg-sky-500]="selectedLevel() === level.value"
             [class.text-white]="selectedLevel() === level.value"
             [class.border-sky-500]="selectedLevel() === level.value"
-            [class.text-gray-600]="selectedLevel() !== level.value"
-            [class.border-gray-300]="selectedLevel() !== level.value"
+            [class.text-slate-300]="selectedLevel() !== level.value"
+            [class.border-slate-600]="selectedLevel() !== level.value"
             [class.hover:bg-gray-50]="selectedLevel() !== level.value"
+            [class.bg-transparent]="selectedLevel() !== level.value"
           >
             {{ level.label }}
           </button>
@@ -64,7 +65,7 @@ import { Course } from '../../../core/models/course.model';
                   d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732
                      4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
           </svg>
-          <p class="text-gray-600 font-medium">No se pudieron cargar los cursos.</p>
+          <p class="text-slate-300 font-medium">No se pudieron cargar los cursos.</p>
           <button (click)="loadCourses()"
                   class="mt-4 btn btn-primary text-sm">
             Reintentar
@@ -75,9 +76,9 @@ import { Course } from '../../../core/models/course.model';
       <!-- Grid de cursos -->
       @if (!loading() && !error()) {
         @if (courses().length === 0) {
-          <div class="text-center py-20 text-gray-500">
-            <p class="text-lg font-medium">No hay cursos disponibles</p>
-            <p class="text-sm mt-1">Vuelve pronto, estamos agregando más contenido</p>
+          <div class="text-center py-20">
+            <p class="text-lg font-medium text-slate-300">No hay cursos disponibles</p>
+            <p class="text-sm mt-1 text-slate-500">Vuelve pronto, estamos agregando más contenido</p>
           </div>
         } @else {
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -124,11 +125,11 @@ import { Course } from '../../../core/models/course.model';
 
                 <!-- Info -->
                 <div class="p-4">
-                  <h3 class="font-semibold text-gray-900 text-sm leading-snug
+                  <h3 class="font-semibold text-slate-100 text-sm leading-snug
                              group-hover:text-sky-600 transition-colors line-clamp-2">
                     {{ course.title }}
                   </h3>
-                  <p class="text-xs text-gray-500 mt-1">{{ course.instructor }}</p>
+                  <p class="text-xs text-slate-400 mt-1">{{ course.instructor }}</p>
 
                   <!-- Rating -->
                   <div class="flex items-center gap-1 mt-2">
@@ -156,14 +157,14 @@ import { Course } from '../../../core/models/course.model';
 
                   <!-- Footer: precio y duración -->
                   <div class="flex items-center justify-between mt-3">
-                    <span class="font-bold text-gray-900">
+                    <span class="font-bold text-slate-100">
                       @if (course.price === 0) {
                           <span class="text-green-600">Gratis</span>
                            } @else {
                             $ {{ course.price.toFixed(2) }}
                              }
                     </span>
-                    <span class="text-xs text-gray-400 flex items-center gap-1">
+                    <span class="text-xs text-slate-500 flex items-center gap-1">
                       <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24"
                            stroke="currentColor">
                         <circle cx="12" cy="12" r="10" stroke-width="2"/>

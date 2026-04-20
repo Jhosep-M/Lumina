@@ -28,8 +28,8 @@ import { CartService } from '../../../core/services/cart.service';
                      1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2
                      2 0 014 0z"/>
           </svg>
-          <p class="text-xl font-semibold text-gray-700">Tu carrito está vacío</p>
-          <p class="text-gray-400 mt-1 text-sm">Explora nuestros cursos y empieza a aprender</p>
+          <p class="text-xl font-semibold text-slate-200">Tu carrito está vacío</p>
+          <p class="text-slate-500 mt-1 text-sm">Explora nuestros cursos y empieza a aprender</p>
           <a routerLink="/courses" class="btn btn-primary mt-6 text-sm">
             Ver catálogo
           </a>
@@ -59,17 +59,17 @@ import { CartService } from '../../../core/services/cart.service';
 
                 <!-- Info -->
                 <div class="flex-1 min-w-0">
-                  <h3 class="font-semibold text-gray-900 text-sm leading-snug line-clamp-2">
+                  <h3 class="font-semibold text-slate-100 text-sm leading-snug line-clamp-2">
                     {{ item.title }}
                   </h3>
-                  <p class="text-xs text-gray-400 mt-1">
+                  <p class="text-xs text-slate-500 mt-1">
                     Agregado {{ formatDate(item.addedAt) }}
                   </p>
                 </div>
 
                 <!-- Precio y eliminar -->
                 <div class="flex flex-col items-end justify-between shrink-0">
-                  <span class="font-bold text-gray-900">
+                  <span class="font-bold text-slate-100">
                     @if (item.price === 0) {
                       <span class="text-green-600">Gratis</span>
                     } @else {
@@ -101,19 +101,19 @@ import { CartService } from '../../../core/services/cart.service';
           <!-- Resumen de compra -->
           <div class="lg:col-span-1">
             <div class="card p-6 sticky top-24">
-              <h2 class="font-bold text-gray-900 text-lg mb-4">Resumen</h2>
+              <h2 class="font-bold text-slate-100 text-lg mb-4">Resumen</h2>
 
               <div class="space-y-2 text-sm">
-                <div class="flex justify-between text-gray-600">
+                <div class="flex justify-between text-slate-400">
                   <span>Subtotal ({{ cart.count() }} cursos)</span>
                   <span>$ {{ cart.total().toFixed(2) }}</span>
                 </div>
-                <div class="flex justify-between text-gray-600">
+                <div class="flex justify-between text-slate-400">
                   <span>Descuento</span>
                   <span class="text-green-600">—</span>
                 </div>
-                <div class="border-t border-gray-200 pt-2 mt-2 flex justify-between
-                            font-bold text-gray-900 text-base">
+                <div class="border-t border-slate-700 pt-2 mt-2 flex justify-between
+                            font-bold text-slate-100 text-base">
                   <span>Total</span>
                   <span>$ {{ cart.total().toFixed(2) }}</span>
                 </div>
@@ -125,7 +125,7 @@ import { CartService } from '../../../core/services/cart.service';
 
               <button
                 (click)="cart.clear()"
-                class="w-full mt-2 text-xs text-gray-400 hover:text-red-500
+                class="w-full mt-2 text-xs text-slate-500 hover:text-red-400
                        transition-colors py-1"
               >
                 Vaciar carrito
