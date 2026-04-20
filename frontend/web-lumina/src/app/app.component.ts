@@ -1,4 +1,8 @@
-import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+// app.component.ts
+// FIX: @Inject(PLATFORM_ID) es la API legacy de Angular.
+//      Todo el proyecto usa inject() funcional (Angular 14+), este componente
+//      era el único inconsistente. Unificamos al patrón moderno.
+import { Component, AfterViewInit, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -9,16 +13,16 @@ import { TopBannerComponent } from './shared/components/top-banner/top-banner.co
   standalone: true,
   imports: [RouterOutlet, HeaderComponent, TopBannerComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements AfterViewInit {
-  title = 'LUMINA';
+  private readonly platformId = inject(PLATFORM_ID);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  readonly title = 'LUMINA';
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const loading = document.querySelector('.loading') as HTMLElement;
+      const loading = document.querySelector('.loading') as HTMLElement | null;
       if (loading) loading.style.display = 'none';
     }
   }

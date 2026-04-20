@@ -7,13 +7,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:web-lumina": "node dist/web-lumina/server/server.mjs",
-    "build:css": "postcss src/styles.css -o dist/styles.css"
+    "serve:ssr:web-lumina": "node dist/web-lumina/server/server.mjs"
   },
   "private": true,
   "packageManager": "npm@11.11.0",
   "dependencies": {
-    "@angular/animations": "^21.2.9",
     "@angular/common": "^21.2.0",
     "@angular/compiler": "^21.2.0",
     "@angular/core": "^21.2.0",
@@ -24,7 +22,6 @@
     "@angular/ssr": "^21.2.7",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
-    "supports-color": "^10.2.2",
     "tslib": "^2.3.0",
     "zone.js": "^0.16.1"
   },
