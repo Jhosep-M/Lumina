@@ -22,7 +22,8 @@ interface TimeLeft {
   imports: [RouterLink],
   template: `
     @if (isVisible()) {
-      <div class="relative bg-linear-to-r from-sky-500 to-cyan-400
+      <!-- FIX: bg-linear-to-r es Tailwind v4. Este proyecto usa v3 → bg-gradient-to-r -->
+      <div class="relative bg-gradient-to-r from-sky-500 to-cyan-400
                   text-white py-2.5 px-4 animate-banner">
         <div class="max-w-[1400px] mx-auto flex flex-wrap items-center
                     justify-center gap-2 md:gap-4 pr-8 md:pr-0">
@@ -79,10 +80,6 @@ interface TimeLeft {
   `,
 })
 export class TopBannerComponent implements OnInit, OnDestroy {
-  // ─── CORRECCIÓN SSR ────────────────────────────────────────────────────────
-  // PLATFORM_ID permite detectar si estamos en browser o servidor.
-  // setInterval en SSR mantiene la app inestable forever → timeout de 9s.
-  // Solución: solo iniciar el timer en el browser.
   private readonly platformId = inject(PLATFORM_ID);
   readonly isBrowser = isPlatformBrowser(this.platformId);
 
@@ -93,7 +90,6 @@ export class TopBannerComponent implements OnInit, OnDestroy {
   private intervalId: ReturnType<typeof setInterval> | null = null;
 
   ngOnInit(): void {
-    // Guard crítico: NO ejecutar timers en SSR
     if (!this.isBrowser) return;
 
     this.targetDate = new Date();

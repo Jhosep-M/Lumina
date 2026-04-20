@@ -43,6 +43,9 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    // FIX: background en html garantiza que NO haya flash blanco
+    // en ningún estado del ciclo de vida SSR/hydration
+    background-color: var(--color-bg);
   }
 
   body {
@@ -50,9 +53,22 @@
     font-size: 1rem;
     line-height: 1.5;
     color: var(--color-text);
+    // FIX: background explícito en body — no depender solo de herencia
     background-color: var(--color-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    // FIX: min-height garantiza que el fondo cubra toda la viewport
+    // incluso cuando el contenido es corto
+    min-height: 100vh;
+  }
+
+  // FIX: app-root debe tener el mismo fondo para evitar parpadeo
+  // durante la hidratación SSR (el servidor renderiza el HTML,
+  // el cliente lo hidrata — sin esto hay flash de blanco puro)
+  app-root {
+    display: block;
+    background-color: var(--color-bg);
+    min-height: 100vh;
   }
 
   a    { text-decoration: none; color: inherit; }
@@ -216,6 +232,9 @@
       transition: var(--transition);
       outline: none;
       color: var(--color-text);
+      // FIX: background explícito en inputs para evitar que
+      // el autofill del browser inyecte fondo amarillo/azul
+      background-color: #fff;
 
       &:focus {
         border-color: var(--color-primary);
