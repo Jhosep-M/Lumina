@@ -15,4 +15,5 @@ class Registration extends Model
                     ->withPivot('progress', 'final_grade', 'enrollment_date')
                     ->withTimestamps();
 }
+protected $fillable = ['user_id', 'status'];
 }

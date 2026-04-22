@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
+            // Relación con el estudiante (usuario)
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('status', 50)->default('active');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
