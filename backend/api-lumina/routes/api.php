@@ -2,20 +2,28 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController; // Importamos tu controlador
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\RegistrationController; // <-- ¡Esta es la línea que faltaba!
 
-// Rutas Públicas (No requieren token)
+// Rutas públicas (No requieren token)
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-// Rutas Protegidas (Requieren que el usuario haya iniciado sesión con Sanctum)
+// Rutas protegidas (Requieren token de Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
-
-    // Ruta para cerrar sesión
     Route::post('/logout', [AuthController::class, 'logout']);
+    
+    // Con esta sola línea, Laravel crea las rutas GET, POST, PUT y DELETE para cursos
+    Route::apiResource('courses', CourseController::class);
+});
 
-    // Ruta de prueba para ver los datos del usuario actual
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+// Rutas protegidas (Requieren token de Sanctum)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    
+    Route::apiResource('courses', CourseController::class);
+    
+    // Nueva ruta para inscripciones (LUM-8)
+    Route::post('/courses/{id}/enroll', [RegistrationController::class, 'enroll']);
 });
