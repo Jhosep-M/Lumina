@@ -1,0 +1,29 @@
+// app.component.scss
+// FIX: background-color explícito en :host y .app-wrapper
+// Razón: durante la hidratación SSR hay un instante donde el DOM
+// existe pero los estilos globales aún no se aplicaron —
+// si :host no tiene background propio, ese instante muestra blanco puro (#ffffff).
+// Al definirlo aquí, el color queda encapsulado con el componente.
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: #F8FAFC; // var(--color-bg) — mismo valor que styles.scss
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 1.5rem;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  // FIX: background explícito para que el contenido nunca herede blanco puro
+  // de ningún ancestro no controlado
+  background-color: #F8FAFC;
+}

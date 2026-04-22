@@ -1,8 +1,22 @@
+// app.routes.server.ts
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
+  // courses/:id → SSR on-demand (correcto, el parámetro no se puede prerenderar)
+  {
+    path: 'courses/:id',
+    renderMode: RenderMode.Server,
+  },
+
+  // Rutas protegidas → solo cliente
+  { path: 'cart',           renderMode: RenderMode.Client },
+  { path: 'profile',        renderMode: RenderMode.Client },
+  { path: 'auth/login',     renderMode: RenderMode.Client },
+  { path: 'auth/register',  renderMode: RenderMode.Client },
+
+  // Todo lo demás → prerender en build time
   {
     path: '**',
-    renderMode: RenderMode.Prerender
-  }
+    renderMode: RenderMode.Prerender,
+  },
 ];

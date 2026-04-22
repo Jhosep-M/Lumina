@@ -1,16 +1,30 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
+// app.config.ts
+// FIX: provideClientHydration() es obligatorio en Angular 21 cuando se usa
+//      outputMode: 'server' en angular.json. Sin él, el cliente no puede
+//      rehidratar el HTML renderizado en servidor y se produce un mismatch
+//      que puede romper la aplicación en producción silenciosamente.
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withViewTransitions } from '@angular/router';
+import {
+  provideHttpClient,
+  withInterceptors,
+  withFetch,
+} from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideClientHydration } from '@angular/platform-browser';
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-
-import { provideHttpClient } from '@angular/common/http';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes), 
-    provideClientHydration(withEventReplay()),
-    provideHttpClient() // <-- ¡Aquí encendemos el motor HTTP para todo Angular!
-  ]
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes, withViewTransitions()),
+    provideHttpClient(
+      withInterceptors([authInterceptor, errorInterceptor]),
+      withFetch(), // obligatorio para SSR: usa fetch nativo en lugar de XHR
+    ),
+    provideAnimationsAsync(),
+    provideClientHydration(), // obligatorio con outputMode: 'server' en Angular 21
+  ],
 };
