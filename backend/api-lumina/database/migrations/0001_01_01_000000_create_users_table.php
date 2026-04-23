@@ -9,22 +9,31 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-
-            // Tu clave foránea agregada correctamente aquí:
-            $table->foreignId('role_id')->constrained('roles');
-
-            $table->rememberToken();
-            $table->timestamps();
+            // Foreign Key a Roles (debe existir la tabla 'roles' antes de ejecutar esta)
+            $table->foreignId('role_id')->constrained('roles'); 
+            
+            $table->string('name', 255);
+            $table->string('email', 255)->unique();
+            $table->string('password', 255);
+            $table->string('phone', 20)->nullable();
+            $table->string('avatar_url', 255)->nullable();
+            $table->string('bio', 1000)->nullable();
+            $table->string('date_of_birth', 10)->nullable(); // char(10) para YYYY-MM-DD
+            $table->boolean('is_active')->default(true);
+            
+            // Campos de auditoría y control siguiendo tu formato char(20)
+            $table->string('email_verified_at', 20)->nullable();
+            $table->string('last_login_at', 20)->nullable();
+            $table->string('deleted_at', 20)->nullable(); // Para borrado lógico
+            
+            $table->timestamps(); // Crea created_at y updated_at
         });
 
+        // Estas tablas vienen por defecto en Laravel, puedes dejarlas o moverlas
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
@@ -40,7 +49,6 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
     }
-
     /**
      * Reverse the migrations.
      */

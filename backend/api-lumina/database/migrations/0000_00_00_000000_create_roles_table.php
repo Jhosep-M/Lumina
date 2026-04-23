@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->id(); // Este es tu id: int (PK)
-            $table->string('nombre', 50); // Este es tu nombre: char(50)
-            $table->timestamps(); // Crea automáticamente columnas de "fecha de creación" y "fecha de actualización" (muy útil)
+            $table->id();
+            // Respetando tu UML: nombre char(50)
+            $table->string('nombre', 50); 
+            $table->timestamps();
         });
     }
     /**
