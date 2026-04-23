@@ -2,7 +2,6 @@
   <div class="max-w-[1400px] mx-auto px-4 lg:px-6">
 
     <div class="flex items-center justify-between h-16 md:h-[72px] gap-3">
-
       <a routerLink="/"
          class="flex items-center gap-2.5 shrink-0 group"
          aria-label="LUMINA — Ir al inicio">
@@ -50,33 +49,38 @@
       </div>
 
       <div class="flex items-center gap-1 md:gap-2 shrink-0">
-        <a routerLink="/auth/login"
-           class="hidden sm:inline-flex items-center btn btn-ghost text-sm px-3 py-2">
-          Inicia sesión
-        </a>
-        <a routerLink="/auth/register"
-           class="btn btn-outline text-sm px-4 py-2">
-          Comienza gratis
-        </a>
+        
+        @if (!isAuthenticated()) {
+          <a routerLink="/auth/login"
+             class="hidden sm:inline-flex items-center btn btn-ghost text-sm px-3 py-2">
+            Inicia sesión
+          </a>
+          <a routerLink="/auth/register"
+             class="btn btn-outline text-sm px-4 py-2">
+            Comienza gratis
+          </a>
+        }
 
-        <div class="relative">
-          <button (click)="toggleProfileMenu()"
-                  class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-700 
-                         text-white font-semibold hover:ring-2 hover:ring-sky-500 
-                         transition-all cursor-pointer select-none">
-            {{ userInitials }}
-          </button>
+        @if (isAuthenticated()) {
+          <div class="relative">
+            <button (click)="toggleProfileMenu()"
+                    class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-700 
+                           text-white font-semibold hover:ring-2 hover:ring-sky-500 
+                           transition-all cursor-pointer select-none">
+              {{ userInitials() }}
+            </button>
 
-          @if (isProfileMenuOpen()) {
-            <div class="absolute right-0 top-full mt-2 z-50">
-              <app-profile-dropdown
-                (close)="closeProfileMenu()"
-                clickOutside
-                (clickOutside)="closeProfileMenu()">
-              </app-profile-dropdown>
-            </div>
-          }
-        </div>
+            @if (isProfileMenuOpen()) {
+              <div class="absolute right-0 top-full mt-2 z-50">
+                <app-profile-dropdown
+                  (close)="closeProfileMenu()"
+                  clickOutside
+                  (clickOutside)="closeProfileMenu()">
+                </app-profile-dropdown>
+              </div>
+            }
+          </div>
+        }
 
         <button (click)="toggleMenu()"
                 class="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors text-white ml-1"
@@ -120,14 +124,16 @@
         </nav>
 
         <div class="flex gap-2 px-4 pt-3 border-t border-white/10 mt-2">
-          <a routerLink="/auth/login" (click)="closeMenu()"
-             class="btn btn-ghost text-sm flex-1 justify-center py-2">
-            Inicia sesión
-          </a>
-          <a routerLink="/auth/register" (click)="closeMenu()"
-             class="btn btn-outline text-sm flex-1 justify-center py-2">
-            Comienza gratis
-          </a>
+          @if (!isAuthenticated()) {
+            <a routerLink="/auth/login" (click)="closeMenu()"
+               class="btn btn-ghost text-sm flex-1 justify-center py-2">
+              Inicia sesión
+            </a>
+            <a routerLink="/auth/register" (click)="closeMenu()"
+               class="btn btn-outline text-sm flex-1 justify-center py-2">
+              Comienza gratis
+            </a>
+          }
         </div>
       </div>
     }

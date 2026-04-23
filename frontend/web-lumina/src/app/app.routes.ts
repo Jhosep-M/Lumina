@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { PlaceholderComponent } from './features/placeholder/placeholder.component';
 
 export const routes: Routes = [
   // --- Rutas de Negocio/Funcionales ---
@@ -18,6 +19,20 @@ export const routes: Routes = [
   {
     path: 'premium',
     loadComponent: () => import('./features/placeholder/placeholder.component').then(m => m.PlaceholderComponent)
+  },
+
+  // --- Nuevas Rutas (Placeholder) ---
+  {
+    path: 'my-courses',
+    component: PlaceholderComponent,
+  },
+  {
+    path: 'notes',
+    component: PlaceholderComponent,
+  },
+  {
+    path: 'help',
+    component: PlaceholderComponent,
   },
 
   // --- Rutas de Contenido ---
