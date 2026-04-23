@@ -1,15 +1,8 @@
 // header.component.ts
-// Archivo: frontend/web-lumina/src/app/shared/components/header/header.component.ts
-//
-// CAMBIOS vs. versión original:
-//  1. Eliminado NgOptimizedImage — usaba ngSrc="assets/images/logo.svg" que NO existe
-//     → causaba error Angular en runtime que rompía el header completo
-//  2. Eliminado CommonModule — no se usa directamente; los @if/@for son sintaxis Angular nativa
-//  3. Mantenida toda la lógica de signals y menú
-
 import { Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { ProfileDropdownComponent } from "../profile-dropdown/profile-dropdown.component";
 
 interface MenuItem {
   label: string;
@@ -22,12 +15,17 @@ interface MenuItem {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, SearchBarComponent],
+  imports: [RouterLink, RouterLinkActive, SearchBarComponent, ProfileDropdownComponent],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  // Estados del menú
   isMenuOpen = signal(false);
+  isProfileMenuOpen = signal(false);
+
+  // Datos del usuario (puedes convertir esto a un Signal o Input en el futuro si viene de un servicio)
+  userInitials = 'EM';
 
   menuItems: MenuItem[] = [
     { label: 'Cursos',   route: '/courses',  exact: true  },
@@ -39,6 +37,7 @@ export class HeaderComponent {
     { label: 'Premium',  route: '/premium',  exact: false, highlight: true  },
   ];
 
+  // Métodos de navegación móvil
   toggleMenu(): void {
     this.isMenuOpen.update(v => !v);
   }
@@ -47,8 +46,16 @@ export class HeaderComponent {
     this.isMenuOpen.set(false);
   }
 
+  // Métodos de perfil
+  toggleProfileMenu(): void {
+    this.isProfileMenuOpen.update(v => !v);
+  }
+
+  closeProfileMenu(): void {
+    this.isProfileMenuOpen.set(false);
+  }
+
   onSearch(term: string): void {
     console.log('Buscando:', term);
-    // TODO: router.navigate(['/search'], { queryParams: { q: term } })
   }
 }

@@ -1,0 +1,51 @@
+<!-- src/app/shared/components/profile-dropdown/profile-dropdown.component.html -->
+<div class="profile-dropdown" @fadeSlide>
+  <!-- SECCIÓN USUARIO -->
+  <div class="user-info">
+    <div class="avatar" [style.backgroundColor]="'#e74c3c'">
+      {{ user.initials }}
+    </div>
+    <div class="user-details">
+      <div class="full-name">{{ user.fullName }}</div>
+      <div class="username">{{ user.username }}</div>
+    </div>
+  </div>
+
+  <!-- LISTA DE OPCIONES -->
+  <div class="menu-list">
+    <div
+      *ngFor="let item of menuItems"
+      class="menu-item"
+      (click)="navigateTo(item.route)"
+    >
+      <i [class]="item.icon"></i>
+      <span>{{ item.label }}</span>
+    </div>
+  </div>
+
+  <!-- SECCIÓN MONEDA (con submenú) -->
+  <div class="currency-section">
+    <div class="currency-trigger" (click)="toggleCurrencyMenu($event)">
+      <span>Precios en USD</span>
+      <i class="fas fa-chevron-down" [class.rotated]="showCurrencyMenu"></i>
+    </div>
+    <div class="currency-submenu" *ngIf="showCurrencyMenu">
+      <div class="submenu-item" (click)="changeCurrency('USD')">USD - Dólar</div>
+      <div class="submenu-item" (click)="changeCurrency('EUR')">EUR - Euro</div>
+      <div class="submenu-item" (click)="changeCurrency('GBP')">GBP - Libra</div>
+    </div>
+  </div>
+
+  <!-- BOTÓN PREMIUM -->
+  <div class="premium-button" (click)="upgradeToPremium()">
+    <i class="fas fa-trophy"></i>
+    <span>¡Sube a premium!</span>
+  </div>
+
+  <!-- SEPARADOR + CERRAR SESIÓN -->
+  <div class="divider"></div>
+  <div class="logout-item" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i>
+    <span>Cerrar sesión</span>
+  </div>
+</div>

@@ -1,17 +1,8 @@
-<!-- header.component.html -->
-<!--
-  CORREGIDO:
-  - "bg-linear-to-r" (Tailwind v4) → "bg-gradient-to-r" (Tailwind v3)
-  - Clases consistentes con Tailwind v3
--->
-
 <header class="bg-gradient-to-r from-[#0B172C] to-[#0F2040] text-white sticky top-0 z-50 shadow-lg">
   <div class="max-w-[1400px] mx-auto px-4 lg:px-6">
 
-    <!-- ── Barra principal ── -->
     <div class="flex items-center justify-between h-16 md:h-[72px] gap-3">
 
-      <!-- Logo SVG inline -->
       <a routerLink="/"
          class="flex items-center gap-2.5 shrink-0 group"
          aria-label="LUMINA — Ir al inicio">
@@ -32,29 +23,21 @@
             </linearGradient>
           </defs>
         </svg>
-        <span class="text-xl font-bold text-gradient-blue hidden sm:block
-                     tracking-tight select-none">
+        <span class="text-xl font-bold text-gradient-blue hidden sm:block tracking-tight select-none">
           LUMINA
         </span>
       </a>
 
-      <!-- ── Navegación desktop ── -->
       <nav class="hidden lg:flex items-center gap-0.5 xl:gap-1" aria-label="Menú principal">
         @for (item of menuItems; track item.label) {
           <a [routerLink]="item.route"
              routerLinkActive="active"
              [routerLinkActiveOptions]="{ exact: item.exact }"
              class="nav-link flex items-center gap-1.5">
-
             {{ item.label }}
-
-            @if (item.indicator) {
-              <span class="badge-live" aria-label="En directo"></span>
-            }
-
+            @if (item.indicator) { <span class="badge-live" aria-label="En directo"></span> }
             @if (item.highlight) {
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"
-                   class="text-yellow-400 shrink-0" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400 shrink-0" aria-hidden="true">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
               </svg>
             }
@@ -62,12 +45,10 @@
         }
       </nav>
 
-      <!-- ── Barra de búsqueda desktop ── -->
       <div class="hidden md:flex flex-1 max-w-sm lg:max-w-md mx-2 lg:mx-4">
         <app-search-bar (search)="onSearch($event)" class="w-full"></app-search-bar>
       </div>
 
-      <!-- ── Acciones de usuario ── -->
       <div class="flex items-center gap-1 md:gap-2 shrink-0">
         <a routerLink="/auth/login"
            class="hidden sm:inline-flex items-center btn btn-ghost text-sm px-3 py-2">
@@ -78,35 +59,46 @@
           Comienza gratis
         </a>
 
-        <!-- Hamburger móvil -->
+        <div class="relative">
+          <button (click)="toggleProfileMenu()"
+                  class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-700 
+                         text-white font-semibold hover:ring-2 hover:ring-sky-500 
+                         transition-all cursor-pointer select-none">
+            {{ userInitials }}
+          </button>
+
+          @if (isProfileMenuOpen()) {
+            <div class="absolute right-0 top-full mt-2 z-50">
+              <app-profile-dropdown
+                (close)="closeProfileMenu()"
+                clickOutside
+                (clickOutside)="closeProfileMenu()">
+              </app-profile-dropdown>
+            </div>
+          }
+        </div>
+
         <button (click)="toggleMenu()"
-                class="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors
-                       text-white ml-1"
+                class="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors text-white ml-1"
                 [attr.aria-expanded]="isMenuOpen()"
                 aria-label="Abrir/cerrar menú">
           @if (isMenuOpen()) {
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           } @else {
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 6h16M4 12h16M4 18h16" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           }
         </button>
       </div>
     </div>
 
-    <!-- ── Menú móvil ── -->
     @if (isMenuOpen()) {
       <div class="lg:hidden border-t border-white/10 py-3 animate-fade-in-down">
-
-        <!-- Búsqueda móvil -->
         <div class="px-2 mb-3">
-          <app-search-bar (search)="onSearch($event); closeMenu()"
-                          class="w-full"></app-search-bar>
+          <app-search-bar (search)="onSearch($event); closeMenu()" class="w-full"></app-search-bar>
         </div>
 
         <nav class="flex flex-col gap-0.5">
@@ -115,19 +107,11 @@
                (click)="closeMenu()"
                routerLinkActive="bg-white/10 text-sky-400"
                [routerLinkActiveOptions]="{ exact: item.exact }"
-               class="flex items-center gap-2 px-4 py-2.5 rounded-lg
-                      text-gray-300 hover:text-white hover:bg-white/5
-                      transition-colors text-sm font-medium">
-
+               class="flex items-center gap-2 px-4 py-2.5 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium">
               {{ item.label }}
-
-              @if (item.indicator) {
-                <span class="badge-live"></span>
-              }
-
+              @if (item.indicator) { <span class="badge-live"></span> }
               @if (item.highlight) {
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"
-                     class="text-yellow-400">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
               }
@@ -145,7 +129,6 @@
             Comienza gratis
           </a>
         </div>
-
       </div>
     }
 
