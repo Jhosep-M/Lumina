@@ -45,19 +45,20 @@ export class HeaderComponent {
   });
 
   isAuthenticated = this.auth.isAuthenticated;
+  hasProfileData = this.auth.hasProfileData;
 
   // Estados del menú
   isMenuOpen = signal(false);
   isProfileMenuOpen = signal(false);
 
   menuItems: MenuItem[] = [
-    { label: 'Cursos',   route: '/courses',  exact: true  },
-    { label: 'Rutas',    route: '/paths',    exact: false },
-    { label: 'Escuelas', route: '/schools',  exact: false },
+    { label: 'Cursos', route: '/courses', exact: true },
+    { label: 'Rutas', route: '/paths', exact: false },
+    { label: 'Escuelas', route: '/schools', exact: false },
     { label: 'Empresas', route: '/business', exact: false },
-    { label: 'Trabajos', route: '/jobs',     exact: false },
-    { label: 'En vivo',  route: '/live',     exact: false, indicator: true  },
-    { label: 'Premium',  route: '/premium',  exact: false, highlight: true  },
+    { label: 'Trabajos', route: '/jobs', exact: false },
+    { label: 'En vivo', route: '/live', exact: false, indicator: true },
+    { label: 'Premium', route: '/premium', exact: false, highlight: true },
   ];
 
   toggleMenu(): void {
