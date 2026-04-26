@@ -90,8 +90,12 @@ export const routes: Routes = [
   // ── Placeholder routes ─────────────────────────────────────────────────
   { path: 'business',  component: PlaceholderComponent },
   { path: 'jobs',      component: PlaceholderComponent },
-  { path: 'live',      component: PlaceholderComponent },
-   { path: 'premium',   loadComponent: () => import('./features/premium/premium.component').then(m => m.PremiumComponent) },
+  {
+  path: 'live',
+  loadChildren: () => import('./features/live/routes').then(m => m.LIVE_ROUTES),
+  canActivate: [authGuard]  // opcional si quieres que solo autenticados vean
+  },
+  { path: 'premium',   loadComponent: () => import('./features/premium/premium.component').then(m => m.PremiumComponent) },
   { path: 'my-courses', component: PlaceholderComponent },
   { path: 'notes',     component: PlaceholderComponent },
   { path: 'help',      component: PlaceholderComponent },

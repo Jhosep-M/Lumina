@@ -14,8 +14,8 @@ export class ApiService {
     return this.http.get<T>(`${this.baseUrl}/${endpoint}`, { params: httpParams });
   }
 
-  post<T>(endpoint: string, body: unknown): Observable<T> {
-    return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body);
+  post<T>(endpoint: string, body: unknown,  p0: { headers: { Accept: string; }; }): Observable<T> {
+    return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body, p0);
   }
 
   put<T>(endpoint: string, body: unknown): Observable<T> {

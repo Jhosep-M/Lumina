@@ -5,6 +5,9 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ProfileDropdownComponent } from '../profile-dropdown/profile-dropdown.component';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 import { AuthService } from '../../../core/services/auth.service';
+import { LiveService } from '../../../core/services/live.service';
+import { map } from 'rxjs/internal/operators/map';
+import { toSignal } from '@angular/core/rxjs-interop';
 //import { CommonModule } from '@angular/common'; // para NgIf, etc., pero Angular standalone ya lo tiene parcialmente; usamos @if
 
 interface MenuItem {
@@ -31,8 +34,13 @@ interface MenuItem {
 })
 export class HeaderComponent {
   private auth = inject(AuthService);
-
+  private live = inject(LiveService);
   // Señal del usuario actual (puede ser null)
+  // Convertimos el observable a signal. 'initialValue: false' es necesario.
+  isLive = toSignal(
+    this.live.getStatus().pipe(map(status => status.isLive)), 
+    { initialValue: false }
+  );
   currentUser = this.auth.currentUser;
 
   // Iniciales calculadas a partir del nombre del usuario
