@@ -38,7 +38,7 @@ type PasswordStrength = 'empty' | 'weak' | 'medium' | 'strong';
 
         <!-- Logo + Encabezado -->
         <div class="text-center mb-6">
-          <a routerLink="/" class="inline-flex items-center gap-3 group mb-4" aria-label="LUMINA — Ir al inicio">
+          <a routerLink="/" class="inline-flex items-center gap-3 group mb-4" aria-label="CodeForge Academy — Ir al inicio">
             <svg width="40" height="40" viewBox="0 0 32 32" fill="none" class="transition-transform duration-300 group-hover:rotate-12" aria-hidden="true">
               <circle cx="16" cy="16" r="15" fill="url(#reg-grad)" />
               <path d="M10 22 L16 10 L22 22 Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
@@ -50,7 +50,7 @@ type PasswordStrength = 'empty' | 'weak' | 'medium' | 'strong';
                 </linearGradient>
               </defs>
             </svg>
-            <span class="text-2xl font-bold text-white tracking-tight">LUMINA</span>
+            <span class="text-2xl font-bold text-white tracking-tight">CodeForge Academy</span>
           </a>
           <h1 class="text-white text-2xl font-semibold tracking-tight">
             Crea tu cuenta
@@ -115,6 +115,34 @@ type PasswordStrength = 'empty' | 'weak' | 'medium' | 'strong';
                   </span>
                 }
               </div>
+            </div>
+
+            <!-- Tipo de cuenta -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-slate-200 mb-2">Tipo de cuenta</label>
+              <div class="grid grid-cols-3 gap-3">
+                <label class="cursor-pointer relative">
+                  <input type="radio" formControlName="role_id" [value]="2" class="peer sr-only" />
+                  <div class="p-3 text-center rounded-xl border border-slate-700 bg-slate-900 text-slate-400 peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-checked:text-blue-400 transition hover:bg-slate-800">
+                    <span class="block text-sm font-medium">Estudiante</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer relative">
+                  <input type="radio" formControlName="role_id" [value]="3" class="peer sr-only" />
+                  <div class="p-3 text-center rounded-xl border border-slate-700 bg-slate-900 text-slate-400 peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-checked:text-blue-400 transition hover:bg-slate-800">
+                    <span class="block text-sm font-medium">Instructor</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer relative">
+                  <input type="radio" formControlName="role_id" [value]="1" class="peer sr-only" />
+                  <div class="p-3 text-center rounded-xl border border-slate-700 bg-slate-900 text-slate-400 peer-checked:border-blue-500 peer-checked:bg-blue-500/10 peer-checked:text-blue-400 transition hover:bg-slate-800">
+                    <span class="block text-sm font-medium">Administrador</span>
+                  </div>
+                </label>
+              </div>
+              @if (f['role_id'].invalid && f['role_id'].touched) {
+                <span class="text-xs text-red-400 mt-2 block">Selecciona un tipo de cuenta.</span>
+              }
             </div>
 
             <!-- Email -->
@@ -275,6 +303,7 @@ export class RegisterComponent {
     {
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required]],
+      role_id: [2, [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
@@ -333,10 +362,10 @@ export class RegisterComponent {
     this.loading.set(true);
     this.errorMsg.set('');
 
-    const { firstName, lastName, email, password } = this.form.getRawValue();
+    const { firstName, lastName, role_id, email, password } = this.form.getRawValue();
     const name = `${firstName} ${lastName}`.trim();
 
-    this.auth.register({ name, email: email!, password: password! }).subscribe({
+    this.auth.register({ name, email: email!, password: password!, role_id: role_id as number }).subscribe({
       next: () => {
         this.loading.set(false);
         this.router.navigate(['/courses']);

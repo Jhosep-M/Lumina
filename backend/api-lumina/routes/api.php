@@ -14,6 +14,10 @@ use App\Http\Controllers\RegistrationController;
 
 // Rutas de Autenticación agrupadas bajo el prefijo 'auth'
 // Esto habilita los endpoints: /api/auth/register y /api/auth/login
+Route::get('/test', function () {
+    return response()->json(['message' => 'Conexión exitosa']);
+});
+
 Route::prefix('auth')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);

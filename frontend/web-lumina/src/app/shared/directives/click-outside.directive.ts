@@ -1,15 +1,19 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 
-@Directive({ selector: '[clickOutside]', standalone: true })
+@Directive({
+  selector: '[clickOutside]',
+  standalone: true
+})
 export class ClickOutsideDirective {
   @Output() clickOutside = new EventEmitter<void>();
 
-  constructor(private el: ElementRef) {}
+  constructor(private elementRef: ElementRef) {}
 
   @HostListener('document:click', ['$event.target'])
-  onClick(target: EventTarget | null): void {
-    // Verificar que target sea un elemento HTML y que no sea nulo
-    if (target instanceof HTMLElement && !this.el.nativeElement.contains(target)) {
+  public onClick(target: EventTarget | null): void {
+    // 1. Verificamos que sea un elemento HTML
+    // 2. Verificamos que el click ocurrió fuera del elemento referenciado
+    if (target instanceof HTMLElement && !this.elementRef.nativeElement.contains(target)) {
       this.clickOutside.emit();
     }
   }

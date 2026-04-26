@@ -1,0 +1,53 @@
+<!-- src/app/shared/components/profile-dropdown/profile-dropdown.component.html -->
+<div class="profile-dropdown">
+  @if (currentUser(); as user) {
+    <!-- SECCIÓN USUARIO -->
+    <div class="user-info">
+      <div class="avatar">
+        {{ userInitials() }}
+      </div>
+      <div class="user-details">
+        <div class="full-name">{{ user.name }}</div>
+        <div class="username">{{ computedUsername() }}</div>
+      </div>
+    </div>
+
+    <!-- LISTA DE OPCIONES -->
+    <div class="menu-list">
+      @for (item of menuItems; track item.label) {
+        <div class="menu-item" (click)="navigateTo(item.route)">
+          <span class="menu-icon">{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- SECCIÓN MONEDA (con submenú) -->
+    <div class="currency-section">
+      <div class="currency-trigger" (click)="toggleCurrencyMenu($event)">
+        <span>💰 Precios en USD</span>
+        <span class="chevron" [class.rotated]="showCurrencyMenu">▼</span>
+      </div>
+      @if (showCurrencyMenu) {
+        <div class="currency-submenu">
+          <div class="submenu-item" (click)="changeCurrency('USD')">🇺🇸 USD - Dólar</div>
+          <div class="submenu-item" (click)="changeCurrency('EUR')">🇪🇺 EUR - Euro</div>
+          <div class="submenu-item" (click)="changeCurrency('GBP')">🇬🇧 GBP - Libra</div>
+        </div>
+      }
+    </div>
+
+    <!-- BOTÓN PREMIUM -->
+    <div class="premium-button" (click)="upgradeToPremium()">
+      <span>🏆</span>
+      <span>¡Sube a premium!</span>
+    </div>
+
+    <!-- SEPARADOR + CERRAR SESIÓN -->
+    <div class="divider"></div>
+    <div class="logout-item" (click)="logout()">
+      <span>🚪</span>
+      <span>Cerrar sesión</span>
+    </div>
+  }
+</div>
