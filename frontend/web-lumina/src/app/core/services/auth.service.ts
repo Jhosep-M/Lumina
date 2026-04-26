@@ -105,7 +105,7 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  register(data: { name: string; email: string; password: string }): Observable<AuthResponse> {
+  register(data: { name: string; email: string; password: string; role_id: number }): Observable<AuthResponse> {
     return this.api.post<AuthResponse>('auth/register', data).pipe(
       tap(res => this.persistSession(res))
     );
