@@ -91,7 +91,7 @@ export const routes: Routes = [
   { path: 'business',  component: PlaceholderComponent },
   { path: 'jobs',      component: PlaceholderComponent },
   { path: 'live',      component: PlaceholderComponent },
-  { path: 'premium',   component: PlaceholderComponent },
+   { path: 'premium',   loadComponent: () => import('./features/premium/premium.component').then(m => m.PremiumComponent) },
   { path: 'my-courses', component: PlaceholderComponent },
   { path: 'notes',     component: PlaceholderComponent },
   { path: 'help',      component: PlaceholderComponent },
