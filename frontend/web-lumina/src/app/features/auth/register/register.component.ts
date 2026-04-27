@@ -38,7 +38,7 @@ type PasswordStrength = 'empty' | 'weak' | 'medium' | 'strong';
 
         <!-- Logo + Encabezado -->
         <div class="text-center mb-6">
-          <a routerLink="/" class="inline-flex items-center gap-3 group mb-4" aria-label="LUMINA — Ir al inicio">
+          <a routerLink="/" class="inline-flex items-center gap-3 group mb-4" aria-label="CodeForge Academy — Ir al inicio">
             <svg width="40" height="40" viewBox="0 0 32 32" fill="none" class="transition-transform duration-300 group-hover:rotate-12" aria-hidden="true">
               <circle cx="16" cy="16" r="15" fill="url(#reg-grad)" />
               <path d="M10 22 L16 10 L22 22 Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
@@ -50,7 +50,7 @@ type PasswordStrength = 'empty' | 'weak' | 'medium' | 'strong';
                 </linearGradient>
               </defs>
             </svg>
-            <span class="text-2xl font-bold text-white tracking-tight">LUMINA</span>
+            <span class="text-2xl font-bold text-white tracking-tight">CodeForge Academy</span>
           </a>
           <h1 class="text-white text-2xl font-semibold tracking-tight">
             Crea tu cuenta
@@ -336,7 +336,8 @@ export class RegisterComponent {
     const { firstName, lastName, email, password } = this.form.getRawValue();
     const name = `${firstName} ${lastName}`.trim();
 
-    this.auth.register({ name, email: email!, password: password! }).subscribe({
+    // role_id 2 = Estudiante (rol por defecto para todos los registros públicos)
+    this.auth.register({ name, email: email!, password: password!, role_id: 2 }).subscribe({
       next: () => {
         this.loading.set(false);
         this.router.navigate(['/courses']);
