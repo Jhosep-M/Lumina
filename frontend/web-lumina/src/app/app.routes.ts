@@ -114,7 +114,7 @@ export const routes: Routes = [
       ),
   },
 
-  // ── Redirecciones ──────────────────────────────────────────────────────
-  { path: '', redirectTo: '/courses', pathMatch: 'full' },
+  // ── Home Page ──────────────────────────────────────────────────────────
+  { path: '', loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent), pathMatch: 'full' },
   { path: '**', redirectTo: '/courses' },
 ];

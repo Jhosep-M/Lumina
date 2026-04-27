@@ -15,7 +15,7 @@
 
 import { Component, OnInit, inject, signal, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -52,6 +52,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class LoginSuccessComponent implements OnInit {
   private readonly route      = inject(ActivatedRoute);
+  private readonly router     = inject(Router);
   private readonly auth       = inject(AuthService);
   private readonly platformId = inject(PLATFORM_ID);
 
@@ -71,9 +72,7 @@ export class LoginSuccessComponent implements OnInit {
     // 1. Persiste el token en localStorage Y actualiza el signal de AuthService.
     this.auth.acceptExternalToken(token);
 
-    // 2. Recarga completa en lugar de router.navigate.
-    //    Esto garantiza que Angular arranca con el token ya en localStorage,
-    //    el constructor de AuthService lo lee, y el guard pasa correctamente.
-    window.location.replace('/courses');
+    // 2. Navegar a courses en el cliente
+    this.router.navigate(['/courses']);
   }
 }

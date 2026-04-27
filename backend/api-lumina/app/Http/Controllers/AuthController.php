@@ -14,6 +14,9 @@ class AuthController extends Controller
 {
     public function redirectToProvider($provider)
     {
+        if ($provider === 'google') {
+            return Socialite::driver($provider)->stateless()->with(['prompt' => 'select_account'])->redirect();
+        }
         return Socialite::driver($provider)->stateless()->redirect();
     }
 
@@ -56,6 +59,9 @@ class AuthController extends Controller
                     $user->update($updates);
                 }
             }
+            // Iniciamos la sesión en Laravel (igual que Auth::attempt)
+            // Esto es crucial para Sanctum SPA auth basado en cookies
+            \Illuminate\Support\Facades\Auth::login($user);
 
             // Generamos el token de sesión
             $token = $user->createToken('auth_token')->plainTextToken;
