@@ -68,11 +68,10 @@ export const routes: Routes = [
 
   // ── Rutas de Estudiante ────────────────────────────────────────────────
   {
-    path: 'my-learning',
-    canActivate: [roleGuard(['student', 'instructor', 'admin'])],
-    loadChildren: () =>
-      import('./features/learning/routes').then(m => m.LEARNING_ROUTES),
-  },
+  path: 'my-learning',
+  canActivate: [roleGuard(['student', 'instructor', 'admin'])],
+  loadChildren: () => import('./features/learning/routes').then(m => m.LEARNING_ROUTES),
+},
   {
     path: 'cart',
     canActivate: [roleGuard(['student'])],
