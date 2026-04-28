@@ -86,7 +86,11 @@ export const routes: Routes = [
 
   // ── Placeholder routes ─────────────────────────────────────────────────
   { path: 'business',  component: PlaceholderComponent },
-  { path: 'jobs',      component: PlaceholderComponent },
+  {
+    path: 'codeforce-careers',
+    loadChildren: () => import('./features/codeforce-careers/routes').then(m => m.CAREERS_ROUTES),
+  },
+  { path: 'jobs', redirectTo: 'codeforce-careers', pathMatch: 'full' },
   { path: 'live',      component: PlaceholderComponent },
  { path: 'premium',   loadComponent: () => import('./features/premium/premium.component').then(m => m.PremiumComponent) },
   { path: 'my-courses', component: PlaceholderComponent },
