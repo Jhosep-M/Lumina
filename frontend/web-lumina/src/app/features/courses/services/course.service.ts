@@ -18,7 +18,8 @@ const MOCK_COURSES: Course[] = [
     totalReviews: 1240,
     durationHours: 12,
     level: 'advanced',
-    tags: ['Angular', 'RxJS', 'Frontend']
+    tags: ['Angular', 'RxJS', 'Frontend'],
+    category: undefined
   },
   {
     id: '2',
@@ -32,7 +33,8 @@ const MOCK_COURSES: Course[] = [
     totalReviews: 890,
     durationHours: 8,
     level: 'beginner',
-    tags: ['React', 'JavaScript', 'Frontend']
+    tags: ['React', 'JavaScript', 'Frontend'],
+    category: undefined
   },
   {
     id: '3',
@@ -46,7 +48,8 @@ const MOCK_COURSES: Course[] = [
     totalReviews: 2100,
     durationHours: 20,
     level: 'advanced',
-    tags: ['Node.js', 'Backend', 'Microservices']
+    tags: ['Node.js', 'Backend', 'Microservices'],
+    category: undefined
   },
   {
     id: '4',
@@ -60,7 +63,8 @@ const MOCK_COURSES: Course[] = [
     totalReviews: 3200,
     durationHours: 10,
     level: 'beginner',
-    tags: ['Python', 'Programming']
+    tags: ['Python', 'Programming'],
+    category: undefined
   },
   {
     id: '5',
@@ -74,7 +78,8 @@ const MOCK_COURSES: Course[] = [
     totalReviews: 450,
     durationHours: 6,
     level: 'intermediate',
-    tags: ['UX', 'UI', 'Design']
+    tags: ['UX', 'UI', 'Design'],
+    category: undefined
   },
   {
     id: '6',
@@ -88,7 +93,8 @@ const MOCK_COURSES: Course[] = [
     totalReviews: 670,
     durationHours: 15,
     level: 'intermediate',
-    tags: ['DevOps', 'CI/CD', 'GitHub']
+    tags: ['DevOps', 'CI/CD', 'GitHub'],
+    category: undefined
   },
   {
     id: '7',
@@ -102,7 +108,8 @@ const MOCK_COURSES: Course[] = [
     totalReviews: 1100,
     durationHours: 9,
     level: 'intermediate',
-    tags: ['TypeScript', 'JavaScript']
+    tags: ['TypeScript', 'JavaScript'],
+    category: undefined
   },
   {
     id: '8',
@@ -116,7 +123,8 @@ const MOCK_COURSES: Course[] = [
     totalReviews: 890,
     durationHours: 25,
     level: 'advanced',
-    tags: ['AI', 'Machine Learning', 'Python']
+    tags: ['AI', 'Machine Learning', 'Python'],
+    category: undefined
   }
 ];
 

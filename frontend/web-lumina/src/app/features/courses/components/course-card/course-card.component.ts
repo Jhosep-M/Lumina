@@ -8,17 +8,17 @@ import { Course } from '../../../../core/models/course.model';
   imports: [CommonModule, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="card group flex flex-col h-full bg-slate-800 rounded-lg overflow-hidden shadow-lg border border-slate-700 w-[90vw] md:w-[220px] lg:w-[280px] flex-shrink-0 cursor-pointer"
+    <div class="course-card group flex flex-col h-full bg-slate-800 rounded-lg overflow-hidden shadow-lg border border-slate-700 w-[90vw] md:w-[220px] lg:w-[280px] flex-shrink-0 cursor-pointer"
          (click)="showDetails.emit(course)">
       
       <!-- Thumbnail -->
-      <div class="relative overflow-hidden h-40 bg-gradient-to-br from-sky-900 to-slate-800">
+      <div class="relative overflow-hidden h-40 bg-gradient-to-br from-sky-900/60 to-slate-800">
         @if (course.thumbnailUrl) {
           <img [ngSrc]="course.thumbnailUrl"
                [alt]="course.title"
                width="320"
                height="180"
-               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+               class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                [priority]="isFirst" />
         } @else {
           <div class="flex items-center justify-center h-full">
@@ -43,7 +43,7 @@ import { Course } from '../../../../core/models/course.model';
 
       <!-- Info -->
       <div class="p-4 flex flex-col flex-grow">
-        <h3 class="font-semibold text-slate-100 text-base leading-snug group-hover:text-sky-400 transition-colors line-clamp-2 mb-1">
+        <h3 class="font-semibold text-slate-100 text-base leading-snug group-hover:text-sky-400 transition-colors duration-200 line-clamp-2 mb-1">
           {{ course.title }}
         </h3>
         
@@ -67,13 +67,27 @@ import { Course } from '../../../../core/models/course.model';
           <span class="text-xs text-slate-500 ml-1">({{ course.totalReviews }})</span>
         </div>
 
-        <button class="mt-4 w-full py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 text-sm font-medium rounded-md transition-colors"
+        <button class="mt-4 w-full py-2.5 min-h-[44px] bg-slate-700 hover:bg-sky-500 text-slate-200 hover:text-white text-sm font-medium rounded-lg transition-all duration-200 active:scale-95"
                 (click)="onButtonClick($event)">
           Ver detalles
         </button>
       </div>
     </div>
-  `
+  `,
+  styles: [`
+    .course-card {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: scale(1.02) rotate(0.5deg);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.15),
+                  0 8px 30px rgba(0, 0, 0, 0.4);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+  `]
 })
 export class CourseCardComponent {
   @Input({ required: true }) course!: Course;
