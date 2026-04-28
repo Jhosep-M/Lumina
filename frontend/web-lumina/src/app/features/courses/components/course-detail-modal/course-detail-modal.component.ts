@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Course } from '../../../../core/models/course.model';
 
 @Component({
   selector: 'app-course-detail-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (isOpen && course) {
@@ -18,7 +18,7 @@ import { Course } from '../../../../core/models/course.model';
           <!-- Image Header -->
           <div class="relative h-48 sm:h-64 bg-slate-700">
             @if (course.thumbnailUrl) {
-              <img [src]="course.thumbnailUrl" [alt]="course.title" class="w-full h-full object-cover" />
+              <img [ngSrc]="course.thumbnailUrl" [alt]="course.title" width="600" height="256" class="w-full h-full object-cover" />
             }
             <button class="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
                     (click)="closeModal()" aria-label="Cerrar modal">

@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Course } from '../../../../core/models/course.model';
 
 @Component({
   selector: 'app-course-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card group flex flex-col h-full bg-slate-800 rounded-lg overflow-hidden shadow-lg border border-slate-700 w-[90vw] md:w-[220px] lg:w-[280px] flex-shrink-0 cursor-pointer"
@@ -14,8 +14,10 @@ import { Course } from '../../../../core/models/course.model';
       <!-- Thumbnail -->
       <div class="relative overflow-hidden h-40 bg-gradient-to-br from-sky-900 to-slate-800">
         @if (course.thumbnailUrl) {
-          <img [src]="course.thumbnailUrl"
+          <img [ngSrc]="course.thumbnailUrl"
                [alt]="course.title"
+               width="320"
+               height="180"
                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                loading="lazy" />
         } @else {
