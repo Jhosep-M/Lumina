@@ -31,20 +31,17 @@ export const routes: Routes = [
     loadChildren: () => import('./features/auth/routes').then(m => m.AUTH_ROUTES),
   },
 
-  // ── Rutas de Contenido (cualquier usuario autenticado) ─────────────────
+  // ── Rutas de Contenido (públicas) ──────────────────────────────────────
   {
     path: 'courses',
-    canActivate: [authGuard],
     loadChildren: () => import('./features/courses/routes').then(m => m.COURSE_ROUTES),
   },
   {
     path: 'paths',
-    canActivate: [authGuard],
     loadChildren: () => import('./features/paths/routes').then(m => m.PATHS_ROUTES),
   },
   {
     path: 'schools',
-    canActivate: [authGuard],
     loadChildren: () => import('./features/schools/routes').then(m => m.SCHOOLS_ROUTES),
   },
 
@@ -89,7 +86,11 @@ export const routes: Routes = [
 
   // ── Placeholder routes ─────────────────────────────────────────────────
   { path: 'business',  component: PlaceholderComponent },
-  { path: 'jobs',      component: PlaceholderComponent },
+  {
+    path: 'codeforce-careers',
+    loadChildren: () => import('./features/codeforce-careers/routes').then(m => m.CAREERS_ROUTES),
+  },
+  { path: 'jobs', redirectTo: 'codeforce-careers', pathMatch: 'full' },
   { path: 'live',      component: PlaceholderComponent },
  { path: 'premium',   loadComponent: () => import('./features/premium/premium.component').then(m => m.PremiumComponent) },
   { path: 'my-courses', component: PlaceholderComponent },

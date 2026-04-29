@@ -2,8 +2,10 @@
 // CORREGIDO: eliminado el interface User duplicado — ver user.model.ts
 
 export interface Course {
+category: any;
   id: string;
   title: string;
+  shortDescription?: string;
   description: string;
   instructor: string;
   thumbnailUrl: string;

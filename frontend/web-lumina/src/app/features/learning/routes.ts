@@ -1,8 +1,16 @@
-// features/learning/routes.ts
 import { Routes } from '@angular/router';
-import { LearningPlaceholderComponent } from './learning-placeholder.component';
+import { authGuard } from '../../core/guards/role.guard';
+import { LearnCourseComponent } from './learn-course/learn-course.component';
 
 export const LEARNING_ROUTES: Routes = [
-  { path: '', component: LearningPlaceholderComponent },
-  { path: '**', component: LearningPlaceholderComponent },
+  {
+    path: 'course/:id',
+    component: LearnCourseComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'course/:id/quiz',
+    component: LearnCourseComponent,
+    canActivate: [authGuard],
+  },
 ];
