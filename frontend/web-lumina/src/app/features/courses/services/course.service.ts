@@ -19,7 +19,8 @@ const MOCK_COURSES: Course[] = [
     durationHours: 12,
     level: 'advanced',
     tags: ['Angular', 'RxJS', 'Frontend'],
-    category: undefined
+    category: undefined,
+    schoolId: 'school-1',
   },
   {
     id: '2',
@@ -34,7 +35,8 @@ const MOCK_COURSES: Course[] = [
     durationHours: 8,
     level: 'beginner',
     tags: ['React', 'JavaScript', 'Frontend'],
-    category: undefined
+    category: undefined,
+    schoolId: 'school-1',
   },
   {
     id: '3',
@@ -49,7 +51,8 @@ const MOCK_COURSES: Course[] = [
     durationHours: 20,
     level: 'advanced',
     tags: ['Node.js', 'Backend', 'Microservices'],
-    category: undefined
+    category: undefined,
+    schoolId: 'school-1',
   },
   {
     id: '4',
@@ -64,7 +67,8 @@ const MOCK_COURSES: Course[] = [
     durationHours: 10,
     level: 'beginner',
     tags: ['Python', 'Programming'],
-    category: undefined
+    category: undefined,
+    schoolId: 'school-3',
   },
   {
     id: '5',
@@ -79,7 +83,8 @@ const MOCK_COURSES: Course[] = [
     durationHours: 6,
     level: 'intermediate',
     tags: ['UX', 'UI', 'Design'],
-    category: undefined
+    category: undefined,
+    schoolId: 'school-2',
   },
   {
     id: '6',
@@ -94,7 +99,8 @@ const MOCK_COURSES: Course[] = [
     durationHours: 15,
     level: 'intermediate',
     tags: ['DevOps', 'CI/CD', 'GitHub'],
-    category: undefined
+    category: undefined,
+    schoolId: 'school-4',
   },
   {
     id: '7',
@@ -109,7 +115,8 @@ const MOCK_COURSES: Course[] = [
     durationHours: 9,
     level: 'intermediate',
     tags: ['TypeScript', 'JavaScript'],
-    category: undefined
+    category: undefined,
+    schoolId: 'school-5',
   },
   {
     id: '8',
@@ -124,7 +131,8 @@ const MOCK_COURSES: Course[] = [
     durationHours: 25,
     level: 'advanced',
     tags: ['AI', 'Machine Learning', 'Python'],
-    category: undefined
+    category: undefined,
+    schoolId: 'school-3',
   }
 ];
 
