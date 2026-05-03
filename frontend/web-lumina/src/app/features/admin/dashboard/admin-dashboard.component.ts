@@ -9,9 +9,11 @@
 //
 // Patrón: Smart Component (contiene lógica de estado y navegación)
 // ─────────────────────────────────────────────────────────────────────────────
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 interface StatCard {
   label:   string;
@@ -52,7 +54,7 @@ interface QuickAction {
 
       <!-- KPI Cards -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-        @for (stat of stats; track stat.label) {
+        @for (stat of stats(); track stat.label) {
           <div class="card p-5">
             <div class="flex items-start justify-between mb-3">
               <span class="text-2xl">{{ stat.icon }}</span>
@@ -100,17 +102,32 @@ interface QuickAction {
     </div>
   `,
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit {
   private readonly auth = inject(AuthService);
+  private readonly http = inject(HttpClient);
 
   readonly userName = () => this.auth.currentUser()?.name?.split(' ')[0] ?? 'Admin';
 
-  readonly stats: StatCard[] = [
-    { label: 'Cursos activos',   value: '142',    icon: '📚', delta: '+12 este mes', color: '' },
-    { label: 'Usuarios totales', value: '8,421',  icon: '👥', delta: '+234 este mes', color: '' },
-    { label: 'Instructores',     value: '38',     icon: '🎓', delta: '+3 este mes',   color: '' },
-    { label: 'Ingresos (USD)',   value: '$24,800', icon: '💰', delta: '+18% vs mes anterior', color: '' },
-  ];
+  readonly stats = signal<StatCard[]>([
+    { label: 'Cursos activos',   value: '...',    icon: '📚', delta: '', color: '' },
+    { label: 'Usuarios totales', value: '...',  icon: '👥', delta: '', color: '' },
+    { label: 'Instructores',     value: '...',     icon: '🎓', delta: '',   color: '' },
+    { label: 'Ingresos (USD)',   value: '...', icon: '💰', delta: '', color: '' },
+  ]);
+
+  ngOnInit() {
+    this.http.get<any>(`${environment.apiUrl}/admin/dashboard/stats`).subscribe({
+      next: (data) => {
+        this.stats.set([
+          { label: 'Cursos activos',   value: data.active_courses.toString(),    icon: '📚', delta: 'Actualizado', color: '' },
+          { label: 'Usuarios totales', value: data.total_users.toString(),  icon: '👥', delta: 'Actualizado', color: '' },
+          { label: 'Instructores',     value: data.instructors.toString(),     icon: '🎓', delta: 'Actualizado',   color: '' },
+          { label: 'Ingresos (USD)',   value: `$${data.revenue.toLocaleString()}`, icon: '💰', delta: 'Actualizado', color: '' },
+        ]);
+      },
+      error: (err) => console.error('Error cargando stats del dashboard', err)
+    });
+  }
 
   readonly quickActions: QuickAction[] = [
     {

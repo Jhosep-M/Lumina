@@ -22,26 +22,13 @@
       }
     </div>
 
-    <!-- SECCIÓN MONEDA (con submenú) -->
-    <div class="currency-section">
-      <div class="currency-trigger" (click)="toggleCurrencyMenu($event)">
-        <span>💰 Precios en USD</span>
-        <span class="chevron" [class.rotated]="showCurrencyMenu">▼</span>
+    <!-- BOTÓN PREMIUM (Solo si es estudiante/no es admin y no es instructor) -->
+    @if (!isAdminOrInstructor()) {
+      <div class="premium-button" (click)="upgradeToPremium()">
+        <span>🏆</span>
+        <span>¡Sube a premium!</span>
       </div>
-      @if (showCurrencyMenu) {
-        <div class="currency-submenu">
-          <div class="submenu-item" (click)="changeCurrency('USD')">🇺🇸 USD - Dólar</div>
-          <div class="submenu-item" (click)="changeCurrency('EUR')">🇪🇺 EUR - Euro</div>
-          <div class="submenu-item" (click)="changeCurrency('GBP')">🇬🇧 GBP - Libra</div>
-        </div>
-      }
-    </div>
-
-    <!-- BOTÓN PREMIUM -->
-    <div class="premium-button" (click)="upgradeToPremium()">
-      <span>🏆</span>
-      <span>¡Sube a premium!</span>
-    </div>
+    }
 
     <!-- SEPARADOR + CERRAR SESIÓN -->
     <div class="divider"></div>

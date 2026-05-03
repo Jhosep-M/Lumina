@@ -65,8 +65,8 @@ export class HeaderComponent {
     { label: 'Escuelas', route: '/schools', exact: false },
     { label: 'Empresas', route: '/business', exact: false },
     { label: 'Trabajos', route: '/jobs', exact: false },
-    { label: 'En vivo', route: '/live', exact: false, indicator: true },
-    { label: 'Premium', route: '/premium', exact: false, highlight: true },
+    { label: 'En vivo', route: '/live', exact: false },
+    { label: 'Premium', route: '/premium', exact: false },
   ];
 
   toggleMenu(): void {

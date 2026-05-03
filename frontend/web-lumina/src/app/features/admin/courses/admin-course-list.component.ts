@@ -38,7 +38,6 @@ import { ToastService } from '../../../core/services/toast.service';
               <tr class="border-b border-slate-700/50 bg-slate-800/30 text-slate-300 text-sm">
                 <th class="py-4 px-6 font-medium">Curso</th>
                 <th class="py-4 px-6 font-medium">Nivel</th>
-                <th class="py-4 px-6 font-medium">Precio</th>
                 <th class="py-4 px-6 font-medium">Estado</th>
                 <th class="py-4 px-6 font-medium text-right">Acciones</th>
               </tr>
@@ -64,11 +63,6 @@ import { ToastService } from '../../../core/services/toast.service';
                   <td class="py-4 px-6 text-sm text-slate-400 capitalize">
                     {{ course.level }}
                   </td>
-                  <td class="py-4 px-6 text-sm">
-                    <span class="font-medium text-slate-300">
-                      {{ course.price === 0 ? 'Gratis' : ('$' + course.price) }}
-                    </span>
-                  </td>
                   <td class="py-4 px-6">
                     @if ($any(course).is_active !== false) {
                       <span class="px-2 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -90,7 +84,7 @@ import { ToastService } from '../../../core/services/toast.service';
               
               @if (courses().length === 0) {
                 <tr>
-                  <td colspan="5" class="py-8 text-center text-slate-400">
+                  <td colspan="4" class="py-8 text-center text-slate-400">
                     No hay cursos registrados en la plataforma.
                   </td>
                 </tr>

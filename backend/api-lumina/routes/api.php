@@ -55,6 +55,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Rutas del CRUD de cursos (LUM-7)
     Route::apiResource('courses', CourseController::class);
     
+    // Dashboard Stats Admin
+    Route::get('/admin/dashboard/stats', [\App\Http\Controllers\AdminDashboardController::class, 'stats']);
+
     // Rutas del CRUD de usuarios (Solo admins, verificado en UserController)
     Route::apiResource('users', UserController::class);
     
@@ -67,3 +70,7 @@ Route::get('/auth/{provider}/redirect', [AuthController::class, 'redirectToProvi
 
 // Esta ruta sirve para /auth/github/callback y /auth/google/callback
 Route::get('/auth/{provider}/callback', [AuthController::class, 'handleProviderCallback']);
+
+use App\Http\Controllers\CheckoutController;
+Route::middleware('auth:sanctum')->post('/checkout/session/{course_id}', [CheckoutController::class, 'createSession']);
+Route::middleware('auth:sanctum')->post('/checkout/subscription', [CheckoutController::class, 'createSubscriptionSession']);
