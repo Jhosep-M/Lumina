@@ -95,20 +95,22 @@ register();
               slides-per-view="auto"
               space-between="24"
               loop="true"
+              auto-height="true"
               [attr.autoplay-delay]="isBrowser ? '3200' : null"
               autoplay-disable-on-interaction="false"
               autoplay-pause-on-mouse-enter="true"
               grab-cursor="true"
-              class="w-full pb-10 pt-2"
+              class="w-full pb-10 pt-2 overflow-visible"
             >
               @for (path of paths(); track path.id; let i = $index) {
-                <swiper-slide style="width:auto;">
+                <swiper-slide style="width:auto; height:auto;">
                   <!-- Card wrapper (relative for popup) -->
-                  <div class="path-card-wrapper group/card relative"
+                  <div class="path-card-wrapper group/card relative h-full"
                        [style.animation-delay]="(i * 0.06) + 's'">
 
                     <!-- ── Main Card ── -->
-                    <div class="path-card flex flex-col w-[88vw] sm:w-[300px] lg:w-[320px]
+                    <a [routerLink]="['/paths', path.id]"
+                       class="path-card flex flex-col w-[88vw] sm:w-[300px] lg:w-[320px] h-full
                                  bg-slate-800/80 border border-slate-700/80 rounded-2xl overflow-hidden
                                  cursor-pointer transition-all duration-300
                                  group-hover/card:border-sky-500/30">
@@ -157,17 +159,16 @@ register();
                         </div>
 
                         <!-- CTA -->
-                        <a [routerLink]="['/paths', path.id]"
-                           class="path-cta w-full flex items-center justify-center gap-2 py-2.5 min-h-[44px]
-                                   bg-slate-700 hover:bg-sky-500 text-slate-200 hover:text-white
+                        <div class="path-cta w-full flex items-center justify-center gap-2 py-2.5 min-h-[44px]
+                                   bg-slate-700 group-hover/card:bg-sky-500 text-slate-200 group-hover/card:text-white
                                    text-sm font-semibold rounded-xl transition-all duration-200 active:scale-95">
                           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                           </svg>
                           Ver ruta
-                        </a>
+                        </div>
                       </div>
-                    </div>
+                    </a>
 
                     <!-- ── Hover Popup ── -->
                     <div class="path-popup absolute left-1/2 -translate-x-1/2 top-0 w-[320px] z-50
@@ -298,6 +299,7 @@ register();
     /* Card wrapper must have enough height for popup overlay */
     .path-card-wrapper {
       display: flex;
+      height: 100%;
     }
 
     /* animate-fade-in-up local override */
