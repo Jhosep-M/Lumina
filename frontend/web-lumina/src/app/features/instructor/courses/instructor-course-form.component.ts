@@ -99,7 +99,7 @@ import { PermissionService } from '../../../core/services/permission.service';
               </div>
 
               <!-- Duración -->
-              <div class="space-y-2">
+              <div class="space-y-2 md:col-span-2">
                 <label class="block text-sm font-medium text-slate-300">Duración (Horas)</label>
                 <input 
                   type="number" 
@@ -109,22 +109,6 @@ import { PermissionService } from '../../../core/services/permission.service';
                 >
                 @if (f['duration'].touched && f['duration'].invalid) {
                   <p class="text-red-400 text-xs">Ingresa una duración válida.</p>
-                }
-              </div>
-
-              <!-- Precio -->
-              <div class="space-y-2">
-                <label class="block text-sm font-medium text-slate-300">Precio (USD)</label>
-                <input 
-                  type="number" 
-                  formControlName="price"
-                  min="0"
-                  step="0.01"
-                  class="w-full bg-slate-800/50 border border-slate-700 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all"
-                >
-                <p class="text-xs text-slate-500 mt-1">Pon 0 para que el curso sea gratuito.</p>
-                @if (f['price'].touched && f['price'].invalid) {
-                  <p class="text-red-400 text-xs">El precio es requerido.</p>
                 }
               </div>
 
@@ -205,7 +189,6 @@ export class InstructorCourseFormComponent implements OnInit {
     category_id: [null, Validators.required],
     level: ['beginner', Validators.required],
     duration: [0, [Validators.required, Validators.min(1)]],
-    price: [0, [Validators.required, Validators.min(0)]],
     thumbnail_url: ['']
   });
 
@@ -230,7 +213,6 @@ export class InstructorCourseFormComponent implements OnInit {
           category_id: course.category_id,
           level: course.level,
           duration: course.duration,
-          price: course.price,
           thumbnail_url: course.thumbnail_url || course.thumbnailUrl || ''
         });
         this.loading.set(false);
@@ -255,7 +237,7 @@ export class InstructorCourseFormComponent implements OnInit {
       category_id: Number(formValue.category_id),
       level: formValue.level,
       duration: Number(formValue.duration),
-      price: Number(formValue.price),
+      price: 0, // Precio predeterminado en 0 porque ya no se edita desde la interfaz
       thumbnail_url: formValue.thumbnail_url
     };
 

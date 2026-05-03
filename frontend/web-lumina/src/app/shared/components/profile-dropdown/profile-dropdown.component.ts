@@ -43,9 +43,6 @@ export class ProfileDropdownComponent {
     return '@usuario';
   });
 
-  // Estado del submenú de moneda
-  showCurrencyMenu = false;
-
   // Opciones del menú con rutas REALES de tu aplicación (calculado dinámicamente según permisos)
   menuItems = computed(() => {
     const items = [
@@ -65,6 +62,10 @@ export class ProfileDropdownComponent {
     return items;
   });
 
+  isAdminOrInstructor = computed(() => {
+    return this.permissions.isAdmin() || this.permissions.isInstructor();
+  });
+
   // Navegar y cerrar menú
   navigateTo(route: string): void {
     this.router.navigate([route]);
@@ -81,18 +82,6 @@ export class ProfileDropdownComponent {
   logout(): void {
     this.auth.logout(); // Este método ya redirige a /auth/login
     this.closeMenu();
-  }
-
-  // Submenú de moneda
-  toggleCurrencyMenu(event: Event): void {
-    event.stopPropagation();
-    this.showCurrencyMenu = !this.showCurrencyMenu;
-  }
-
-  changeCurrency(currency: string): void {
-    console.log(`Moneda cambiada a ${currency}`);
-    // Aquí puedes implementar un servicio de moneda
-    this.showCurrencyMenu = false;
   }
 
   closeMenu(): void {

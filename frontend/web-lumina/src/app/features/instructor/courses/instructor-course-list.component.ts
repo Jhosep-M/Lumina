@@ -97,13 +97,6 @@ import { Course } from '../../../core/models/course.model';
                     <span class="text-xs text-slate-500">
                       {{ course.durationHours }}h · {{ course.totalReviews }} reseñas
                     </span>
-                    <span class="font-bold text-sm text-slate-200">
-                      @if (course.price === 0) {
-                        <span class="text-green-500">Gratis</span>
-                      } @else {
-                        {{ '$' + course.price.toFixed(2) }}
-                      }
-                    </span>
                   </div>
                 </div>
 
