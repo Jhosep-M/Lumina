@@ -21,12 +21,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // 2. Creamos tu usuario Administrador (Asumiendo que el ID 1 es Admin)
-        User::create([
-            'role_id' => 1,
-            'name' => 'Admin Lumina',
-            'email' => 'admin@lumina.com',
-            'password' => bcrypt('admin123'), // bcrypt encripta la contraseña
-            'email_verified_at' => now(),
+        User::firstOrCreate(
+            ['email' => 'admin@lumina.com'],
+            [
+                'role_id' => 1,
+                'name' => 'Admin Lumina',
+                'password' => bcrypt('admin123'), // bcrypt encripta la contraseña
+                'email_verified_at' => now(),
+            ]
+        );
+
+        // 3. Insertar los cursos y categorias por defecto
+        $this->call([
+            MockCourseSeeder::class,
         ]);
     }
 }

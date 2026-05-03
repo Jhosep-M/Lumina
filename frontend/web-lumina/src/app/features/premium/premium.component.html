@@ -1,80 +1,98 @@
 
 <!-- Sección de Precios Premium -->
-<section class="min-h-screen py-16 px-4 bg-[#0b1015] font-sans">
-  <div class="max-w-7xl mx-auto">
+<section class="min-h-screen py-16 px-4 bg-[#141b21] font-sans">
+  <div class="max-w-6xl mx-auto">
     <!-- Título de la sección -->
-    <div class="text-center mb-12">
-      <h2 class="text-4xl font-bold text-white mb-4">Planes Premium</h2>
-      <p class="text-gray-400 text-lg">Elige el plan perfecto para tu aprendizaje</p>
+    <div class="text-center mb-6">
+      <h2 class="text-4xl font-bold text-slate-100 mb-6">Precios Premium</h2>
+      <h3 class="text-2xl font-medium text-slate-300 md:mb-12">Elige el plan ideal para ti</h3>
     </div>
 
     <!-- Grid de tarjetas de precios -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Tarjeta de Plan -->
       <div
         *ngFor="let plan of plans"
-        class="bg-[#141c26] rounded-2xl p-6 flex flex-col relative"
-        [class.ring-2]="plan.isPopular"
+        class="bg-[#1b252f] rounded-3xl p-8 flex flex-col relative border border-slate-700/30 shadow-lg relative mt-6"
+        [class.border-emerald-500]="plan.isPopular"
+        [class.ring-1]="plan.isPopular"
         [class.ring-emerald-500]="plan.isPopular"
       >
-        <!-- Badge de Descuento -->
+        <!-- Badge de Ahorro -->
         <div
-          *ngIf="plan.discount"
-          class="absolute -top-3 right-4 bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full"
+          *ngIf="plan.badge"
+          class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-slate-700 text-slate-300 text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap shadow-sm border border-slate-600"
         >
-          {{ plan.discount }}
+          {{ plan.badge }}
         </div>
 
-        <!-- Título del Plan -->
-        <h3 class="text-xl font-semibold text-white mb-2">{{ plan.title }}</h3>
+        <!-- Título del Plan y Ciclo -->
+        <div class="flex justify-between items-start mb-6 mt-2">
+          <h3 class="text-xl font-bold text-white">{{ plan.title }}</h3>
+          <span class="text-xs font-medium px-3 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+            {{ plan.billingCycle }}
+          </span>
+        </div>
 
         <!-- Precio -->
         <div class="mb-6">
-          <div class="flex items-baseline gap-2">
-            <span
-              *ngIf="plan.originalPrice"
-              class="text-gray-500 line-through text-lg"
-            >
-              {{ plan.originalPrice }} BS
-            </span>
-            <span class="text-3xl font-bold text-white">
-              {{ plan.price !== null ? (plan.price | number:'1.2-2') + ' BS' : 'Gratis' }}
+          <div class="flex items-end gap-1">
+            <span class="text-green-500 text-2xl font-bold">$</span>
+            <span class="text-4xl font-bold text-white">{{ plan.price }}</span>
+            <span class="text-slate-400 font-medium tracking-wide">
+              / {{ plan.billingCycle === 'Mensual' ? 'mes' : 'año' }}
             </span>
           </div>
+          <p class="text-sm text-slate-400 mt-2 font-medium">Cobro {{ plan.billingCycle === 'Mensual' ? 'mensual' : 'anual' }} recurrente</p>
         </div>
 
-        <!-- Lista de Beneficios -->
-        <ul class="space-y-3 mb-8 flex-grow">
+        <!-- Beneficios -->
+        <ul class="space-y-4 mb-8 flex-grow mt-2">
           <li *ngFor="let benefit of plan.benefits" class="flex items-start gap-3">
-            <svg
-              class="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 13l4 4L19 7"
-              ></path>
+            <svg *ngIf="benefit.included" class="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
             </svg>
-            <span class="text-gray-300 text-sm">{{ benefit }}</span>
+            <svg *ngIf="!benefit.included" class="w-5 h-5 text-slate-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            <span class="text-sm font-medium" [class.text-slate-300]="benefit.included" [class.text-slate-500]="!benefit.included">
+              {{ benefit.text }}
+            </span>
           </li>
         </ul>
 
         <!-- Botón CTA -->
-        <button
-          class="w-full py-3 px-4 rounded-lg font-semibold transition-colors"
-          [class.bg-emerald-500]="plan.isPopular || plan.price === 0"
-          [class.hover:bg-emerald-600]="plan.isPopular || plan.price === 0"
-          [class.bg-white]="!plan.isPopular && plan.price !== 0"
-          [class.hover:bg-gray-100]="!plan.isPopular && plan.price !== 0"
-          [class.text-gray-900]="!plan.isPopular && plan.price !== 0"
-          [class.text-white]="plan.isPopular || plan.price === 0"
-        >
-          {{ plan.price === 0 ? 'Comenzar Gratis' : 'Suscribirse' }}
-        </button>
+        <div class="mt-auto flex flex-col gap-3">
+          <button
+            (click)="subscribe(plan.id)"
+            [disabled]="isLoadingMap[plan.id]"
+            class="w-full py-3.5 px-4 rounded-xl font-semibold transition-all shadow-md text-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            [class.bg-emerald-500]="plan.isPopular"
+            [class.hover:bg-emerald-400]="plan.isPopular"
+            [class.text-slate-900]="plan.isPopular"
+            [class.bg-transparent]="!plan.isPopular"
+            [class.border]="!plan.isPopular"
+            [class.border-emerald-500]="!plan.isPopular"
+            [class.text-emerald-500]="!plan.isPopular"
+            [class.hover:bg-emerald-500/10]="!plan.isPopular"
+          >
+            <span *ngIf="isLoadingMap[plan.id]">
+              <svg class="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+            </span>
+            <span>{{ isLoadingMap[plan.id] ? 'Procesando...' : 'Suscríbete a ' + plan.title }}</span>
+          </button>
+          
+          <div *ngIf="plan.installments" class="text-xs text-center text-slate-400 font-medium flex items-center justify-center gap-1.5 mt-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            {{ plan.installments }}
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

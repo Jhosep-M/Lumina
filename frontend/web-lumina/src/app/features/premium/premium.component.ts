@@ -1,13 +1,16 @@
 
 import { Component } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { StripeService } from '../../shared/services/stripe.service';
 
 interface Plan {
+  id: string;
   title: string;
-  price: number | null;
-  originalPrice?: number;
-  discount?: string;
-  benefits: string[];
+  badge?: string;
+  billingCycle: string;
+  price: number;
+  installments?: string;
+  benefits: { included: boolean; text: string }[];
   isPopular?: boolean;
 }
 
@@ -15,46 +18,73 @@ interface Plan {
   selector: 'app-premium',
   standalone: true,
   imports: [CommonModule, NgFor, NgIf],
-
   templateUrl:  './premium.component.html',
   styleUrl: './premium.component.scss'
 })
 export class PremiumComponent {
+  // Estado para un posible toggle entra personas y empresas, por ahora estático
+  activeTab: 'persons' | 'companies' = 'persons';
+  
+  isLoadingMap: { [key: string]: boolean } = {};
+
+  constructor(private stripeService: StripeService) {}
+
   plans: Plan[] = [
     {
-      title: 'Plan Gratuito',
-      price: 0,
+      id: 'basic',
+      title: 'Plan Basic',
+      billingCycle: 'Mensual',
+      price: 39, // USD
       benefits: [
-        'Acceso a contenido básico',
-        'Soporte por email',
-        'Actualizaciones mensuales'
+        { included: true, text: 'Contenido profesional y actualizado con certificados digitales' },
+        { included: false, text: 'Certificados físicos para las rutas de aprendizaje profesional' },
+        { included: false, text: 'Acceso a las escuelas de Startups, Inglés y Liderazgo' },
+        { included: false, text: 'Eventos exclusivos' }
       ]
     },
     {
-      title: 'Pro',
-      price: 100.5,
-      originalPrice: 150,
-      discount: '¡Ahorras 33%!',
+      id: 'expert',
+      title: 'Plan Expert',
+      badge: 'AHORRAS 7 MESES',
+      billingCycle: 'Anual',
+      price: 249, // USD
+      installments: 'Paga a 4 cuotas sin intereses de $62.25',
       benefits: [
-        'Todo lo del plan gratuito',
-        'Acceso a contenido avanzado',
-        'Soporte prioritario 24/7',
-        'Actualizaciones semanales',
-        'Recursos descargables'
+        { included: true, text: 'Contenido profesional y actualizado con certificados digitales' },
+        { included: true, text: 'Certificados físicos para las rutas de aprendizaje profesional' },
+        { included: true, text: 'Acceso a las escuelas de Startups, Inglés y Liderazgo' },
+        { included: true, text: 'Eventos exclusivos' }
       ],
       isPopular: true
     },
     {
-      title: 'Premium',
-      price: 200,
+      id: 'expert_duo',
+      title: 'Plan Expert Duo',
+      badge: 'AHORRAS 9 MESES',
+      billingCycle: 'Anual',
+      price: 349, // USD
+      installments: 'Paga a 4 cuotas sin intereses de $87.25',
       benefits: [
-        'Todo lo del plan Pro',
-        'Sesiones de mentoring 1-a-1',
-        'Acceso anticipado a nuevas funciones',
-        'Certificado de completación',
-        'Comunidad exclusiva',
-        'Garantía de satisfacción'
+        { included: true, text: 'Para 2 estudiantes simultáneos' },
+        { included: true, text: 'Contenido profesional y actualizado con certificados digitales' },
+        { included: true, text: 'Certificados físicos para las rutas de aprendizaje profesional' },
+        { included: true, text: 'Acceso a las escuelas de Startups, Inglés y Liderazgo' },
+        { included: true, text: 'Eventos exclusivos' }
       ]
     }
   ];
+
+  subscribe(planId: string) {
+    this.isLoadingMap[planId] = true;
+    this.stripeService.createSubscriptionSession(planId).subscribe({
+      next: (res) => {
+        window.location.href = res.url;
+      },
+      error: (err) => {
+        console.error('Error starting checkout session', err);
+        this.isLoadingMap[planId] = false;
+        alert('Ocurrió un error al intentar iniciar el pago. Asegúrate de estar autenticado (inicia sesión).');
+      }
+    });
+  }
 }
